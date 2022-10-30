@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/FirstFragment">
+
+    <fragment
+        android:id="@+id/FirstFragment"
+        android:name="dev.manuel.proyectomoviles.ui.fragments.FragmentLogin"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_login">
+
+        <action
+            android:id="@+id/action_FirstFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/SecondFragment"
+        android:name="dev.manuel.proyectomoviles.ui.fragments.FragmentRegistro"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_registro">
+
+        <action
+            android:id="@+id/action_SecondFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentGrupos"
+        android:name="dev.manuel.proyectomoviles.FragmentGrupos"
+        android:label="fragment_grupos"
+        tools:layout="@layout/fragment_grupos" />
+    <fragment
+        android:id="@+id/fragmentCuestionarios"
+        android:name="dev.manuel.proyectomoviles.FragmentCuestionarios"
+        android:label="fragment_cuestionarios"
+        tools:layout="@layout/fragment_cuestionarios" />
+    <fragment
+        android:id="@+id/fragmentCuestionario"
+        android:name="dev.manuel.proyectomoviles.FragmentCuestionario"
+        android:label="fragment_cuestionario"
+        tools:layout="@layout/fragment_cuestionario" />
+</navigation>
