@@ -10,6 +10,9 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import dev.manuel.proyectomoviles.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -34,6 +37,14 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAnchorView(R.id.fab)
                 .setAction("Action", null).show()
+        }
+
+        findNavController(R.id.nav_host_fragment_content_main)
+            .addOnDestinationChangedListener { _, destination, _ ->
+            when(destination.id) {
+                R.id.fragmentPreguntas -> binding.fab.visibility = View.INVISIBLE
+                else -> binding.fab.visibility = View.VISIBLE
+            }
         }
     }
 
