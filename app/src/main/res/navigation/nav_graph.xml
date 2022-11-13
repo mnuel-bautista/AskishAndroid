@@ -53,5 +53,14 @@
         android:id="@+id/fragmentPreguntas"
         android:name="dev.manuel.proyectomoviles.FragmentPreguntas"
         android:label="fragment_preguntas"
-        tools:layout="@layout/fragment_preguntas" />
+        tools:layout="@layout/fragment_preguntas" >
+        <action
+            android:id="@+id/action_fragmentPreguntas_to_fragmentCuestionarioCompletado"
+            app:destination="@id/fragmentCuestionarioCompletado" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentCuestionarioCompletado"
+        android:name="dev.manuel.proyectomoviles.FragmentCuestionarioCompletado"
+        android:label="fragment_cuestionario_completado"
+        tools:layout="@layout/fragment_cuestionario_completado" />
 </navigation>

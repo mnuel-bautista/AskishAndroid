@@ -11,8 +11,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import dev.manuel.proyectomoviles.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -42,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         findNavController(R.id.nav_host_fragment_content_main)
             .addOnDestinationChangedListener { _, destination, _ ->
             when(destination.id) {
-                R.id.fragmentPreguntas -> binding.fab.visibility = View.INVISIBLE
+                R.id.fragmentPreguntas, R.id.fragmentCuestionarioCompletado -> binding.fab.visibility = View.INVISIBLE
                 else -> binding.fab.visibility = View.VISIBLE
             }
         }
