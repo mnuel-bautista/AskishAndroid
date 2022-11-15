@@ -3,12 +3,93 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentCuestionario">
+    tools:context=".ui.fragments.FragmentCuestionario">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
+        android:id="@+id/top_app_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="64dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/top_app_bar" />
 
+    <RelativeLayout
+        android:id="@+id/frame_1"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="64dp"
+        android:background="@drawable/frame_1">
+
+        <!-- <TextView
+            android:id="@+id/cuestionario1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="80dp"
+            android:gravity="center_vertical"
+            android:letterSpacing="0.03"
+            android:lineSpacingExtra="5sp"
+            android:text="Cultura General"
+            android:textColor="#1c1b1f"
+            android:textSize="16sp" /> -->
+
+
+        <Button
+            android:id="@+id/cuestionario1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:text="Cuestionario 1"
+            android:textColor="#000000"
+            android:textAlignment="textStart"/>
+
+        <Button
+            android:id="@+id/cuestionario2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/cuestionario1"
+            android:layout_marginBottom="-50dp"
+            android:text="Cuestionario 2"
+            android:backgroundTint="@color/white"
+            android:textColor="#000000"
+            android:textAlignment="textStart"/>
+
+        <Button
+            android:id="@+id/cuestionario3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/cuestionario2"
+            android:layout_marginBottom="-50dp"
+            android:text="Cuestionario 3"
+            android:backgroundTint="@color/white"
+            android:textColor="#000000"
+            android:textAlignment="textStart"/>
+
+        <Button
+            android:id="@+id/cuestionario4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/cuestionario3"
+            android:layout_marginBottom="-50dp"
+            android:text="Cuestionario 4"
+            android:backgroundTint="@color/white"
+            android:textColor="#000000"
+            android:textAlignment="textStart"/>
+
+        <Button
+            android:id="@+id/cuestionario5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/cuestionario4"
+            android:layout_marginBottom="-50dp"
+            android:text="Cuestionario 5"
+            android:backgroundTint="@color/white"
+            android:textColor="#000000"
+            android:textAlignment="textStart"/>
+
+    </RelativeLayout>
 </FrameLayout>

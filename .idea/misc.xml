@@ -4,6 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Manuel/Documents/android-projects/ProyectoMoviles/app/src/main/res/layout/fragment_first.xml" value="0.2" />
+        <entry key="..\:/angel/Documentos/A Pro_Movil/proyecto-moviles/app/src/main/res/drawable/frame_1.xml" value="0.1575" />
+        <entry key="..\:/angel/Documentos/A Pro_Movil/proyecto-moviles/app/src/main/res/drawable/list_item.xml" value="0.1575" />
+        <entry key="..\:/angel/Documentos/A Pro_Movil/proyecto-moviles/app/src/main/res/drawable/top_app_bar.xml" value="0.1575" />
+        <entry key="..\:/angel/Documentos/A Pro_Movil/proyecto-moviles/app/src/main/res/layout/fragment_cuestionario.xml" value="0.176" />
       </map>
     </option>
   </component>
