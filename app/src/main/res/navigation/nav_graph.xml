@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragmentSalaEspera">
+    app:startDestination="@id/fragmentGrupos">
 
     <fragment
         android:id="@+id/FirstFragment"
@@ -63,4 +63,9 @@
         android:name="dev.manuel.proyectomoviles.FragmentCuestionarioCompletado"
         android:label="fragment_cuestionario_completado"
         tools:layout="@layout/fragment_cuestionario_completado" />
+    <fragment
+        android:id="@+id/fragmentSalas"
+        android:name="dev.manuel.proyectomoviles.FragmentSalas"
+        android:label="fragment_salas"
+        tools:layout="@layout/fragment_salas" />
 </navigation>

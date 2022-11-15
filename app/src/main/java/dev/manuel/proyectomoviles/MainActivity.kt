@@ -11,6 +11,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.navigation.ui.setupWithNavController
 import dev.manuel.proyectomoviles.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -27,9 +28,12 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
+        val topDestinations = setOf(R.id.fragmentCuestionarios, R.id.fragmentSalas, R.id.fragmentGrupos)
+
         val navController = findNavController(R.id.nav_host_fragment_content_main)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
+        appBarConfiguration = AppBarConfiguration(topLevelDestinationIds = topDestinations)
         setupActionBarWithNavController(navController, appBarConfiguration)
+        binding.bottomNavigation.setupWithNavController(navController)
 
         binding.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
