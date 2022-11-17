@@ -45,4 +45,12 @@
     </string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="SLogin01">¡Hola! Es bueno tenerte de vuelta</string>
+    <string name="HintLogin01">Correo electronico</string>
+    <string name="HintLogin02">Contraseña</string>
+    <string name="btnLogin01">Ingresar con correo</string>
+    <string name="btnLogin02">Registrar con correo</string>
+    <string name="btnLogin03">Ingresar con Facebook</string>
+    <string name="btnLogin04">Ingresar con Twitter</string>
+
 </resources>
