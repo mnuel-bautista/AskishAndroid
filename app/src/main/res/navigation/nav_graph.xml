@@ -28,12 +28,12 @@
     <fragment
         android:id="@+id/fragmentGrupos"
         android:name="dev.manuel.proyectomoviles.ui.fragments.FragmentGrupos"
-        android:label="fragment_grupos"
+        android:label="Grupos"
         tools:layout="@layout/fragment_grupos" />
     <fragment
         android:id="@+id/fragmentCuestionarios"
         android:name="dev.manuel.proyectomoviles.ui.fragments.FragmentCuestionarios"
-        android:label="fragment_cuestionarios"
+        android:label="Cuestionarios"
         tools:layout="@layout/fragment_cuestionarios" />
     <fragment
         android:id="@+id/fragmentCuestionario"
@@ -66,6 +66,6 @@
     <fragment
         android:id="@+id/fragmentSalas"
         android:name="dev.manuel.proyectomoviles.FragmentSalas"
-        android:label="fragment_salas"
+        android:label="Salas"
         tools:layout="@layout/fragment_salas" />
 </navigation>
