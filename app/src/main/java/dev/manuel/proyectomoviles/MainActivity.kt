@@ -44,8 +44,14 @@ class MainActivity : AppCompatActivity() {
         findNavController(R.id.nav_host_fragment_content_main)
             .addOnDestinationChangedListener { _, destination, _ ->
             when(destination.id) {
-                R.id.fragmentPreguntas, R.id.fragmentCuestionarioCompletado -> binding.fab.visibility = View.INVISIBLE
-                else -> binding.fab.visibility = View.VISIBLE
+                R.id.fragmentPreguntas, R.id.fragmentCuestionarioCompletado -> {
+                    binding.fab.visibility = View.INVISIBLE
+                    binding.bottomNavigation.visibility = View.INVISIBLE
+                }
+                else -> {
+                    binding.fab.visibility = View.VISIBLE
+                    binding.bottomNavigation.visibility = View.VISIBLE
+                }
             }
         }
     }

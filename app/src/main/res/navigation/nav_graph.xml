@@ -47,7 +47,8 @@
         tools:layout="@layout/fragment_sala_espera" >
         <action
             android:id="@+id/action_fragmentSalaEspera_to_fragmentPreguntas"
-            app:destination="@id/fragmentPreguntas" />
+            app:destination="@id/fragmentPreguntas"
+            app:popUpTo="@id/fragmentSalas" />
         <argument
             android:name="sala"
             app:argType="string" />
