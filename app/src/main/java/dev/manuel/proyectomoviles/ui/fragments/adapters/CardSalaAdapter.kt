@@ -4,15 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.google.android.material.card.MaterialCardView
 import dev.manuel.proyectomoviles.R
 import dev.manuel.proyectomoviles.models.Sala
 
 
-class CardSalaAdapter :
+class CardSalaAdapter(val onCardClick: (Sala) -> Unit = {}) :
     androidx.recyclerview.widget.ListAdapter<Sala, CardSalaAdapter.SalaViewHolder>(
         diffCallback
     ) {
@@ -33,6 +31,7 @@ class CardSalaAdapter :
         holder.cuestionario.text = getItem(position).cuestionario
         holder.grupo.text = getItem(position).grupo
         holder.participantes.text = getItem(position).participantes.toString()
+        holder.itemView.setOnClickListener { onCardClick(getItem(position)) }
     }
 
 }

@@ -48,6 +48,9 @@
         <action
             android:id="@+id/action_fragmentSalaEspera_to_fragmentPreguntas"
             app:destination="@id/fragmentPreguntas" />
+        <argument
+            android:name="sala"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/fragmentPreguntas"
@@ -67,5 +70,9 @@
         android:id="@+id/fragmentSalas"
         android:name="dev.manuel.proyectomoviles.FragmentSalas"
         android:label="Salas"
-        tools:layout="@layout/fragment_salas" />
+        tools:layout="@layout/fragment_salas" >
+        <action
+            android:id="@+id/action_fragmentSalas_to_fragmentSalaEspera"
+            app:destination="@id/fragmentSalaEspera" />
+    </fragment>
 </navigation>

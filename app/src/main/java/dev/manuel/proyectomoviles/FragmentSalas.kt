@@ -1,22 +1,25 @@
 package dev.manuel.proyectomoviles
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import dev.manuel.proyectomoviles.databinding.FragmentSalasBinding
+import dev.manuel.proyectomoviles.db.AppDatabase
 import dev.manuel.proyectomoviles.models.Sala
 import dev.manuel.proyectomoviles.ui.fragments.adapters.CardSalaAdapter
+
 
 class FragmentSalas : Fragment() {
 
     private lateinit var binding: FragmentSalasBinding
 
-    private val firestore = Firebase.firestore
+    private val db: AppDatabase? = AppDatabase.getDatabase()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +33,10 @@ class FragmentSalas : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentSalasBinding.bind(view)
 
-        val adapter = CardSalaAdapter()
+        val adapter = CardSalaAdapter {
+            val args = bundleOf("salaId" to it.id)
+            findNavController().navigate(R.id.action_fragmentSalas_to_fragmentSalaEspera, args)
+        }
         binding.salasRecyclerView.adapter = adapter
         binding.salasRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -40,10 +46,10 @@ class FragmentSalas : Fragment() {
 
 
     private fun getRooms(adapter: CardSalaAdapter) {
-        firestore.collection("salas")
-            .whereEqualTo("participantes.FpmW9loJtXSa1jh12RZ3", true)
-            .get()
-            .addOnSuccessListener {
+        db?.firestore?.collection("salas")
+            ?.whereEqualTo("invitados.jaYl9hlDSAHCTWzA2ez5YWc1VhrQ", true)
+            ?.get()
+            ?.addOnSuccessListener {
                 val rooms = it.documents.map { e ->
                     val id = e.id
                     val cuestionario = e["cuestionario.nombre"] as String

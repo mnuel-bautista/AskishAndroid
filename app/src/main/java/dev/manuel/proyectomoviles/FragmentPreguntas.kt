@@ -6,25 +6,31 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.ListenerRegistration
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import dev.manuel.proyectomoviles.databinding.FragmentPreguntasBinding
+import dev.manuel.proyectomoviles.models.CurrentQuestion
+import dev.manuel.proyectomoviles.models.CurrentQuestionStatus
+import dev.manuel.proyectomoviles.repositories.QuizRoomStatus
+import dev.manuel.proyectomoviles.repositories.QuizzRoomRepository
+import kotlinx.coroutines.launch
 
 
 class FragmentPreguntas : Fragment() {
 
-    private val firestore = Firebase.firestore
+
+    private val quizRoomRepository: QuizzRoomRepository = QuizzRoomRepository()
 
     private lateinit var binding: FragmentPreguntasBinding
 
-    private lateinit var listenerRegistration: ListenerRegistration
+    private var questionId: String = ""
 
-    private var sala: DocumentSnapshot? = null
+    private lateinit var currentQuestion: CurrentQuestion
 
     private lateinit var auth: FirebaseAuth
 
@@ -41,78 +47,82 @@ class FragmentPreguntas : Fragment() {
         binding = FragmentPreguntasBinding.bind(view)
         auth = Firebase.auth
 
-        val salaId = arguments?.getString("sala")
+        val salaId = arguments?.getString("salaId") ?: ""
 
-        if(salaId != null) {
-            listenerRegistration = firestore.collection("salas")
-                .document(salaId)
-                .addSnapshotListener { value, _ ->
-                    sala = value
-                    val pregunta = value?.getString("pregunta")!!
-                    val cuestionario = value.getDocumentReference("cuestionario")
-                    val estado = value.getString("estado")
+        quizRoomRepository.getQuizRoom(salaId)
 
-                    binding.pregunta.text = pregunta
-                    cuestionario?.get()?.addOnSuccessListener {
-                        (context as AppCompatActivity).supportActionBar!!.title = it.getString("cuestionario")
-                    }
+        viewLifecycleOwner.lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                quizRoomRepository.currentQuestion.collect {
+                    currentQuestion = it
+                    with(binding) {
+                        if (it.status == CurrentQuestionStatus.InProgress) {
+                            opcionA.visibility = View.VISIBLE
+                            opcionB.visibility = View.VISIBLE
+                            opcionC.visibility = View.VISIBLE
+                            opcionD.visibility = View.VISIBLE
+                            pregunta.text = it.question
+                            esperandoResto.visibility = View.INVISIBLE
+                            respuestaCorrecta.visibility = View.INVISIBLE
+                            descripcion.visibility = View.INVISIBLE
+                        }
 
-                    if(estado == "Completa") {
-                        with(binding) {
+                        if (it.status == CurrentQuestionStatus.Completed) {
                             opcionA.visibility = View.INVISIBLE
                             opcionB.visibility = View.INVISIBLE
                             opcionC.visibility = View.INVISIBLE
                             opcionD.visibility = View.INVISIBLE
-                            esperandoResto.visibility = View.INVISIBLE
                             descripcion.visibility = View.VISIBLE
                             respuestaCorrecta.visibility = View.VISIBLE
-
-                            val respuestaCorrectaId = value.getString("respuesta_correcta") ?: ""
-                            val mRespuestaCorrecta = value.getString("respuestas.${respuestaCorrectaId}")
-                            respuestaCorrecta.text = mRespuestaCorrecta
-                            descripcion.text = value.getString("descripcion") ?: ""
+                            respuestaCorrecta.text = it.correctAnswer
+                            descripcion.text = it.description
                         }
                     }
+                }
+            }
+        }
 
-                    val estadoSala = value.getString("estado_sala")
+        viewLifecycleOwner.lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                quizRoomRepository.quizGroup.collect {
+                    (context as AppCompatActivity).supportActionBar!!.title = it
+                }
+            }
+        }
 
-                    if(estadoSala == "Completada") {
+        viewLifecycleOwner.lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                quizRoomRepository.quizRoomStatus.collect {
+                    if (it == QuizRoomStatus.Completed) {
                         findNavController().navigate(R.id.action_fragmentPreguntas_to_fragmentCuestionarioCompletado)
                     }
                 }
+            }
         }
 
-        binding.opcionA.setOnClickListener { chooseAnswer("A") }
-        binding.opcionB.setOnClickListener { chooseAnswer("B") }
-        binding.opcionC.setOnClickListener { chooseAnswer("C") }
-        binding.opcionD.setOnClickListener { chooseAnswer("D") }
+        binding.opcionA.setOnClickListener { chooseAnswer("a") }
+        binding.opcionB.setOnClickListener { chooseAnswer("b") }
+        binding.opcionC.setOnClickListener { chooseAnswer("c") }
+        binding.opcionD.setOnClickListener { chooseAnswer("d") }
     }
 
     private fun chooseAnswer(answer: String) {
-        val salaId = arguments?.getString("sala")
+        val salaId = arguments?.getString("salaId")
         val userId = arguments?.getString("userId")
 
-
-
-        if(salaId != null) {
-            val preguntaId = sala?.getString("id_pregunta")
-            firestore.collection("salas")
-                .document(salaId)
-                .collection("resultados")
-                .document(preguntaId!!)
-                .update("$answer.$userId", true)
-                .addOnSuccessListener {
-                    binding.opcionA.visibility = View.INVISIBLE
-                    binding.opcionB.visibility = View.INVISIBLE
-                    binding.opcionC.visibility = View.INVISIBLE
-                    binding.opcionD.visibility = View.INVISIBLE
-                    binding.esperandoResto.visibility = View.VISIBLE
+        if (salaId != null && userId != null) {
+            viewLifecycleOwner.lifecycleScope.launch {
+                lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    quizRoomRepository.addAnswer(currentQuestion.questionId, currentQuestion.question, userId, salaId, answer)
+                    with(binding) {
+                        opcionA.visibility = View.INVISIBLE
+                        opcionB.visibility = View.INVISIBLE
+                        opcionC.visibility = View.INVISIBLE
+                        opcionD.visibility = View.INVISIBLE
+                        esperandoResto.visibility = View.VISIBLE
+                    }
                 }
+            }
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        listenerRegistration.remove()
     }
 }
