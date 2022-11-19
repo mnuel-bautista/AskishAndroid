@@ -6,19 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.manuel.proyectomoviles.databinding.FragmentSalasBinding
-import dev.manuel.proyectomoviles.db.AppDatabase
-import dev.manuel.proyectomoviles.models.Sala
+import dev.manuel.proyectomoviles.repositories.QuizzRoomRepository
 import dev.manuel.proyectomoviles.ui.fragments.adapters.CardSalaAdapter
+import kotlinx.coroutines.launch
 
 
 class FragmentSalas : Fragment() {
 
     private lateinit var binding: FragmentSalasBinding
 
-    private val db: AppDatabase? = AppDatabase.getDatabase()
+    private val quizRoomRepository: QuizzRoomRepository = QuizzRoomRepository()
 
 
     override fun onCreateView(
@@ -46,21 +49,13 @@ class FragmentSalas : Fragment() {
 
 
     private fun getRooms(adapter: CardSalaAdapter) {
-        db?.firestore?.collection("salas")
-            ?.whereEqualTo("invitados.jaYl9hlDSAHCTWzA2ez5YWc1VhrQ", true)
-            ?.get()
-            ?.addOnSuccessListener {
-                val rooms = it.documents.map { e ->
-                    val id = e.id
-                    val cuestionario = e["cuestionario.nombre"] as String
-                    val grupo = e["grupo.nombre"] as String
-                    val participantes = (e["participantes"] as HashMap<String, Boolean>).count()
-
-                    Sala(id, cuestionario, grupo, participantes)
+        quizRoomRepository.getAllQuizRooms("")
+        viewLifecycleOwner.lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                quizRoomRepository.quizRooms.collect {
+                    adapter.submitList(it)
                 }
-
-                adapter.submitList(rooms)
             }
-
+        }
     }
 }

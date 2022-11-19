@@ -5,6 +5,7 @@ import com.google.firebase.firestore.SetOptions
 import dev.manuel.proyectomoviles.db.AppDatabase
 import dev.manuel.proyectomoviles.models.CurrentQuestion
 import dev.manuel.proyectomoviles.models.CurrentQuestionStatus
+import dev.manuel.proyectomoviles.models.Sala
 import kotlinx.coroutines.flow.*
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -12,6 +13,11 @@ import kotlin.coroutines.suspendCoroutine
 class QuizzRoomRepository {
 
     private val firestore = AppDatabase.getDatabase()?.firestore
+
+    private val mQuizRooms: MutableStateFlow<List<Sala>> =
+        MutableStateFlow(emptyList())
+
+    val quizRooms: StateFlow<List<Sala>> = mQuizRooms.asStateFlow()
 
     private val mQuizRoomStatus: MutableStateFlow<QuizRoomStatus> =
         MutableStateFlow(QuizRoomStatus.NotStarted)
@@ -47,6 +53,25 @@ class QuizzRoomRepository {
                     val group = value.getString("cuestionario.nombre") ?: ""
                     mQuizGroup.value = group
                 }
+            }
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    fun getAllQuizRooms(userId: String) {
+        firestore?.collection("salas")
+            ?.whereEqualTo("invitados.jaYl9hlDSAHCTWzA2ez5YWc1VhrQ", true)
+            ?.whereNotEqualTo("estado_sala", "Completed")
+            ?.addSnapshotListener { value, _ ->
+                val rooms = value?.documents?.map { e ->
+                    val id = e.id
+                    val cuestionario = e["cuestionario.nombre"] as String
+                    val grupo = e["grupo.nombre"] as String
+                    val participantes = (e["participantes"] as HashMap<String, Boolean>).count()
+
+                    Sala(id, cuestionario, grupo, participantes)
+                } ?: emptyList()
+
+                mQuizRooms.value = rooms
             }
     }
 
