@@ -7,7 +7,7 @@ import com.google.firebase.ktx.Firebase
 class AppDatabase {
 
     val firestore = Firebase.firestore.apply {
-        useEmulator("192.168.0.32", 8080)
+        useEmulator("192.168.0.27", 8080)
         val settings = FirebaseFirestoreSettings.Builder()
             .setPersistenceEnabled(false)
             .build()

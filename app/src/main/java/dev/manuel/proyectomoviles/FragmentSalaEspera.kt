@@ -36,13 +36,12 @@ class FragmentSalaEspera : Fragment() {
         listenerRegistration = database?.firestore?.document("salas/$salaArg")
             ?.addSnapshotListener { value, _ ->
                 if(value != null) {
-                    if(value.getString("estado_sala") == "En Progreso") {
+                    if(value.getString("estado_sala") == "In Progress") {
                         val args = bundleOf("salaId" to value.id, "userId" to "jaYl9hlDSAHCTWzA2ez5YWc1VhrQ")
                         findNavController().navigate(R.id.action_fragmentSalaEspera_to_fragmentPreguntas, args)
                     }
                 }
             }!!
-
     }
 
     override fun onDestroyView() {
