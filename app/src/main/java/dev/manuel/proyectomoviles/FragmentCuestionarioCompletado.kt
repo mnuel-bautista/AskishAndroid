@@ -1,10 +1,9 @@
 package dev.manuel.proyectomoviles
 
 import android.os.Bundle
+import android.view.*
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import dev.manuel.proyectomoviles.databinding.FragmentCuestionarioCompletadoBinding
 
@@ -13,6 +12,19 @@ class FragmentCuestionarioCompletado : Fragment() {
 
 
     private lateinit var binding: FragmentCuestionarioCompletadoBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requireActivity().addMenuProvider(object: MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menu.clear()
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return false
+            }
+        })
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,5 +43,6 @@ class FragmentCuestionarioCompletado : Fragment() {
             findNavController().popBackStack(R.id.fragmentSalas, false)
         }
     }
+
 
 }
