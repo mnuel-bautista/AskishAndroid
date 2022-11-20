@@ -1,10 +1,8 @@
 package dev.manuel.proyectomoviles
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.firestore.*
@@ -16,7 +14,11 @@ class FragmentSalaEspera : Fragment() {
 
     private lateinit var listenerRegistration: ListenerRegistration
 
-    private lateinit var userId: String
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +44,11 @@ class FragmentSalaEspera : Fragment() {
                     }
                 }
             }!!
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
     }
 
     override fun onDestroyView() {
