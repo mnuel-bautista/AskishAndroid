@@ -61,6 +61,11 @@ class MainActivity : AppCompatActivity() {
                     binding.fab.visibility = View.INVISIBLE
                     binding.bottomNavigation.visibility = View.INVISIBLE
                 }
+                R.id.fragmentGrupos -> {
+                    binding.fab.setOnClickListener {
+
+                    }
+                }
                 else -> {
                     binding.fab.visibility = View.VISIBLE
                     binding.bottomNavigation.visibility = View.VISIBLE
