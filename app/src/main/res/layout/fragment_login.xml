@@ -35,6 +35,7 @@
         android:hint="@string/HintLogin01"
         android:importantForAutofill="no"
         android:inputType="textEmailAddress"
+        android:textColor="#ff2E3133"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -94,20 +95,18 @@
 
     <Button
         android:id="@+id/btnGoogle"
-        android:layout_width="wrap_content"
+        style="@style/Widget.Material3.Button.ElevatedButton"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="99dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="99dp"
-        android:backgroundTint="@color/material_dynamic_primary50"
+        android:backgroundTint="#FFFFFF"
         android:drawableLeft="@drawable/common_google_signin_btn_icon_dark"
-        android:foregroundTint="@color/material_dynamic_primary60"
         android:text="@string/btnLogin03"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="#FFFFFF"
+        android:textColor="#2E3133"
         android:textSelectHandle="@drawable/common_google_signin_btn_icon_dark"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btnTelefono"
+        app:layout_constraintStart_toStartOf="@+id/btnTelefono"
         app:layout_constraintTop_toBottomOf="@+id/btnTelefono" />
 
     <Button
