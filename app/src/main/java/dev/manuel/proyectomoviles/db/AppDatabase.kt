@@ -25,7 +25,7 @@ class AppDatabase private constructor() {
     val auth = Firebase.auth.apply {
         val host = BuildConfig.HOST
         if(host != "") {
-            FirebaseAuth.getInstance().useEmulator(host , 9099)
+            useEmulator(host , 9099)
         }
     }
 
