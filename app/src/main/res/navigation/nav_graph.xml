@@ -43,8 +43,8 @@
     <fragment
         android:id="@+id/fragmentSalaEspera"
         android:name="dev.manuel.proyectomoviles.FragmentSalaEspera"
-        android:label="fragment_sala_espera"
-        tools:layout="@layout/fragment_sala_espera" >
+        android:label=" "
+        tools:layout="@layout/fragment_sala_espera">
         <action
             android:id="@+id/action_fragmentSalaEspera_to_fragmentPreguntas"
             app:destination="@id/fragmentPreguntas"
