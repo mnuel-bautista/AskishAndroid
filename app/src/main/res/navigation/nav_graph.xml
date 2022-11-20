@@ -62,7 +62,8 @@
         tools:layout="@layout/fragment_preguntas" >
         <action
             android:id="@+id/action_fragmentPreguntas_to_fragmentCuestionarioCompletado"
-            app:destination="@id/fragmentCuestionarioCompletado" />
+            app:destination="@id/fragmentCuestionarioCompletado"
+            app:popUpTo="@id/fragmentSalas" />
     </fragment>
     <fragment
         android:id="@+id/fragmentCuestionarioCompletado"

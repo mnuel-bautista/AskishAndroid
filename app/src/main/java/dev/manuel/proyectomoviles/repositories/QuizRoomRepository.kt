@@ -116,8 +116,8 @@ private fun getQuestionStatus(questionStatus: String?): CurrentQuestionStatus {
 
 private fun getQuizRoomStatus(quizRoomStatus: String?): QuizRoomStatus {
     return when (quizRoomStatus) {
-        "En Progreso" -> QuizRoomStatus.InProgress
-        "Completada" -> QuizRoomStatus.Completed
+        "In Progress" -> QuizRoomStatus.InProgress
+        "Completed" -> QuizRoomStatus.Completed
         else -> QuizRoomStatus.NotStarted
     }
 }
