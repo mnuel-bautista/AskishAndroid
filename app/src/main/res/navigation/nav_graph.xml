@@ -3,27 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragmentGrupos">
+    android:label=" "
+    app:startDestination="@id/FragmentLogin">
 
     <fragment
-        android:id="@+id/FirstFragment"
+        android:id="@+id/FragmentLogin"
         android:name="dev.manuel.proyectomoviles.ui.fragments.FragmentLogin"
-        android:label="@string/first_fragment_label"
+        android:label=" "
         tools:layout="@layout/fragment_login">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            app:destination="@id/FragmentRegistro" />
+        <action
+            android:id="@+id/action_FirstFragment_to_fragmentGrupos"
+            app:destination="@id/fragmentGrupos" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
+        android:id="@+id/FragmentRegistro"
         android:name="dev.manuel.proyectomoviles.ui.fragments.FragmentRegistro"
-        android:label="@string/second_fragment_label"
+        android:label=" "
         tools:layout="@layout/fragment_registro">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            app:destination="@id/FragmentLogin" />
     </fragment>
     <fragment
         android:id="@+id/fragmentGrupos"
@@ -74,7 +78,7 @@
         android:id="@+id/fragmentSalas"
         android:name="dev.manuel.proyectomoviles.FragmentSalas"
         android:label="Salas"
-        tools:layout="@layout/fragment_salas" >
+        tools:layout="@layout/fragment_salas">
         <action
             android:id="@+id/action_fragmentSalas_to_fragmentSalaEspera"
             app:destination="@id/fragmentSalaEspera" />
