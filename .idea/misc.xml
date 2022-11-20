@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Gustavo/Documents/Kotlin/proyecto-moviles/app/src/main/res/drawable/esquina_redondeada.xml" value="0.1" />
+        <entry key="..\:/Users/Gustavo/Documents/Kotlin/proyecto-moviles/app/src/main/res/layout/fragment_cuestionarios.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Gustavo/Documents/Kotlin/proyecto-moviles/app/src/main/res/layout/fragment_grupos.xml" value="0.2" />
+        <entry key="..\:/Users/Gustavo/Documents/Kotlin/proyecto-moviles/app/src/main/res/layout/fragment_grupos_dialog.xml" value="0.25" />
+        <entry key="..\:/Users/Gustavo/Documents/Kotlin/proyecto-moviles/app/src/main/res/layout/fragment_login.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Gustavo/Documents/Kotlin/proyecto-moviles/app/src/main/res/layout/list_item.xml" value="0.203125" />
         <entry key="..\:/Users/Manuel/Documents/android-projects/ProyectoMoviles/app/src/main/res/layout/fragment_first.xml" value="0.2" />
         <entry key="..\:/Users/Manuel/Documents/android-projects/ProyectoMoviles/app/src/main/res/layout/fragment_preguntas.xml" value="0.2" />
         <entry key="..\:/Users/Manuel/Documents/android-projects/ProyectoMoviles/app/src/main/res/layout/fragment_sala_espera.xml" value="0.1" />
