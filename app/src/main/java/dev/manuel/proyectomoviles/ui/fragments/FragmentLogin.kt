@@ -67,7 +67,7 @@ class FragmentLogin : Fragment() {
         btnNumero = view.findViewById(R.id.btnTelefono)
 
         btnRegistrar.setOnClickListener{
-            view -> view.findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
 
         btnIngresar.setOnClickListener {

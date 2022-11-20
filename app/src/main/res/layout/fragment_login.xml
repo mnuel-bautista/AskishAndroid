@@ -30,11 +30,11 @@
         android:layout_height="48dp"
         android:layout_marginStart="39dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="56dp"
+        android:layout_marginEnd="57dp"
         android:ems="10"
         android:hint="@string/HintLogin01"
+        android:importantForAutofill="no"
         android:inputType="textEmailAddress"
-        android:textColorHint="#8D6E63"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -50,6 +50,7 @@
         android:hint="@string/HintLogin02"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtCorreo"
         tools:ignore="TextContrastCheck" />
