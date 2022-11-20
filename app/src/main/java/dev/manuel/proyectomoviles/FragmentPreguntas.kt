@@ -28,8 +28,6 @@ class FragmentPreguntas : Fragment() {
 
     private lateinit var binding: FragmentPreguntasBinding
 
-    private var questionId: String = ""
-
     private lateinit var currentQuestion: CurrentQuestion
 
     private lateinit var auth: FirebaseAuth
@@ -57,23 +55,12 @@ class FragmentPreguntas : Fragment() {
                     currentQuestion = it
                     with(binding) {
                         if (it.status == CurrentQuestionStatus.InProgress) {
-                            opcionA.visibility = View.VISIBLE
-                            opcionB.visibility = View.VISIBLE
-                            opcionC.visibility = View.VISIBLE
-                            opcionD.visibility = View.VISIBLE
+                            binding.root.transitionToState(R.id.next_question_end)
                             pregunta.text = it.question
-                            esperandoResto.visibility = View.INVISIBLE
-                            respuestaCorrecta.visibility = View.INVISIBLE
-                            descripcion.visibility = View.INVISIBLE
                         }
 
                         if (it.status == CurrentQuestionStatus.Completed) {
-                            opcionA.visibility = View.INVISIBLE
-                            opcionB.visibility = View.INVISIBLE
-                            opcionC.visibility = View.INVISIBLE
-                            opcionD.visibility = View.INVISIBLE
-                            descripcion.visibility = View.VISIBLE
-                            respuestaCorrecta.visibility = View.VISIBLE
+                            binding.root.transitionToState(R.id.question_completed_end)
                             respuestaCorrecta.text = it.correctAnswer
                             descripcion.text = it.description
                         }
@@ -113,14 +100,8 @@ class FragmentPreguntas : Fragment() {
         if (salaId != null && userId != null) {
             viewLifecycleOwner.lifecycleScope.launch {
                 lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    binding.root.transitionToState(R.id.action_buttons_end)
                     quizRoomRepository.addAnswer(currentQuestion.questionId, currentQuestion.question, userId, salaId, answer)
-                    with(binding) {
-                        opcionA.visibility = View.INVISIBLE
-                        opcionB.visibility = View.INVISIBLE
-                        opcionC.visibility = View.INVISIBLE
-                        opcionD.visibility = View.INVISIBLE
-                        esperandoResto.visibility = View.VISIBLE
-                    }
                 }
             }
         }

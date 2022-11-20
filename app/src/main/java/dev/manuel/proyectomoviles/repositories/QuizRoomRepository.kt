@@ -102,7 +102,7 @@ private fun getCurrentQuestion(quizRoom: DocumentSnapshot): CurrentQuestion {
     val correctAnswer = quizRoom.getString("question.correctAnswer") ?: ""
     val description = quizRoom.getString("question.description") ?: ""
     val status = getQuestionStatus(quizRoom.getString("question.status"))
-    val answers = quizRoom.get("question.answers") as HashMap<String, String>
+    val answers = quizRoom.get("question.answers") as HashMap<String, String>? ?: mapOf()
 
     return CurrentQuestion(questionId, question, correctAnswer, description, status, answers)
 }

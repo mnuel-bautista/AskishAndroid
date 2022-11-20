@@ -14,6 +14,7 @@ class FragmentSalaEspera : Fragment() {
 
     private lateinit var listenerRegistration: ListenerRegistration
 
+    private var status = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,9 +38,15 @@ class FragmentSalaEspera : Fragment() {
         val salaArg = arguments?.getString("salaId") ?: ""
         listenerRegistration = database?.firestore?.document("salas/$salaArg")
             ?.addSnapshotListener { value, _ ->
+
+                if(status == value?.getString("estado_sala")) {
+                    return@addSnapshotListener
+                }
+
                 if(value != null) {
                     if(value.getString("estado_sala") == "In Progress") {
                         val args = bundleOf("salaId" to value.id, "userId" to "jaYl9hlDSAHCTWzA2ez5YWc1VhrQ")
+                        status = value.getString("estado_sala") ?: ""
                         findNavController().navigate(R.id.action_fragmentSalaEspera_to_fragmentPreguntas, args)
                     }
                 }

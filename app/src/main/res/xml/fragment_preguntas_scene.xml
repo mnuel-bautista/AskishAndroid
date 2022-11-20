@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@id/start"
+        motion:duration="300">
+       <KeyFrameSet>
+       </KeyFrameSet>
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+    </ConstraintSet>
+    <ConstraintSet android:id="@+id/action_buttons_end" >
+        <Constraint
+            android:id="@+id/opcion_a"
+            motion:layout_constraintEnd_toEndOf="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/view"
+            motion:layout_constraintHorizontal_bias="1.0"
+            motion:layout_constraintStart_toStartOf="@+id/view"
+            android:layout_marginTop="120dp"
+            android:visibility="invisible" />
+        <Constraint
+            android:id="@+id/opcion_b"
+            motion:layout_constraintEnd_toEndOf="@+id/opcion_a"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/opcion_a"
+            motion:layout_constraintStart_toStartOf="@+id/opcion_a"
+            android:layout_marginTop="32dp"
+            android:visibility="invisible" />
+        <Constraint
+            android:id="@+id/opcion_c"
+            motion:layout_constraintEnd_toEndOf="@+id/opcion_b"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/opcion_b"
+            motion:layout_constraintStart_toStartOf="@+id/opcion_b"
+            android:layout_marginTop="32dp"
+            android:visibility="invisible" />
+        <Constraint
+            android:id="@+id/opcion_d"
+            motion:layout_constraintEnd_toEndOf="@+id/opcion_c"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/opcion_c"
+            motion:layout_constraintStart_toStartOf="@+id/opcion_c"
+            android:layout_marginTop="32dp"
+            android:visibility="invisible" />
+        <Constraint
+            android:id="@+id/esperando_resto"
+            motion:layout_constraintEnd_toEndOf="@+id/view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            motion:layout_constraintTop_toBottomOf="@+id/view"
+            motion:layout_constraintStart_toStartOf="@+id/view"
+            android:layout_marginTop="32dp" />
+    </ConstraintSet>
+    <ConstraintSet android:id="@+id/action_buttons_start" >
+        <Constraint
+            android:id="@+id/opcion_a"
+            motion:layout_constraintEnd_toEndOf="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/view"
+            motion:layout_constraintHorizontal_bias="1.0"
+            motion:layout_constraintStart_toStartOf="@+id/view"
+            android:layout_marginTop="120dp"
+            android:visibility="visible"
+            motion:transitionEasing="cubic(0.33,0.36,0.8,0.8)" />
+        <Constraint
+            android:id="@+id/opcion_b"
+            motion:layout_constraintEnd_toEndOf="@+id/opcion_a"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/opcion_a"
+            motion:layout_constraintStart_toStartOf="@+id/opcion_a"
+            android:layout_marginTop="32dp"
+            android:visibility="visible" />
+        <Constraint
+            android:id="@+id/opcion_c"
+            motion:layout_constraintEnd_toEndOf="@+id/opcion_b"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/opcion_b"
+            motion:layout_constraintStart_toStartOf="@+id/opcion_b"
+            android:layout_marginTop="32dp"
+            android:visibility="visible" />
+        <Constraint
+            android:id="@+id/opcion_d"
+            motion:layout_constraintEnd_toEndOf="@+id/opcion_c"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/opcion_c"
+            motion:layout_constraintStart_toStartOf="@+id/opcion_c"
+            android:layout_marginTop="32dp"
+            android:visibility="visible" />
+        <Constraint
+            android:id="@+id/esperando_resto"
+            motion:layout_constraintEnd_toEndOf="@+id/view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            motion:layout_constraintTop_toBottomOf="@+id/view"
+            motion:layout_constraintStart_toStartOf="@+id/view"
+            android:layout_marginTop="32dp" />
+    </ConstraintSet>
+    <Transition
+        motion:constraintSetStart="@+id/action_buttons_start"
+        motion:constraintSetEnd="@+id/action_buttons_end"
+        motion:duration="300"
+        motion:motionInterpolator="easeOut" />
+    <ConstraintSet android:id="@+id/question_completed_start" >
+        <Constraint
+            android:id="@+id/respuesta_correcta"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:layout_marginEnd="32dp"
+            motion:layout_constraintTop_toBottomOf="@+id/view"
+            motion:layout_constraintStart_toStartOf="@+id/view"
+            android:layout_marginTop="32dp" />
+        <Constraint
+            android:id="@+id/descripcion"
+            motion:layout_constraintEnd_toEndOf="@+id/respuesta_correcta"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            motion:layout_constraintTop_toBottomOf="@+id/respuesta_correcta"
+            motion:layout_constraintStart_toStartOf="@+id/respuesta_correcta"
+            android:layout_marginTop="40dp" />
+        <Constraint
+            android:id="@+id/opcion_a"
+            motion:layout_constraintEnd_toEndOf="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/view"
+            motion:layout_constraintHorizontal_bias="1.0"
+            motion:layout_constraintStart_toStartOf="@+id/view"
+            android:layout_marginTop="120dp"
+            android:visibility="visible" />
+        <Constraint
+            android:id="@+id/opcion_b"
+            motion:layout_constraintEnd_toEndOf="@+id/opcion_a"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/opcion_a"
+            motion:layout_constraintStart_toStartOf="@+id/opcion_a"
+            android:layout_marginTop="32dp"
+            android:visibility="visible" />
+        <Constraint
+            android:id="@+id/opcion_c"
+            motion:layout_constraintEnd_toEndOf="@+id/opcion_b"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/opcion_b"
+            motion:layout_constraintStart_toStartOf="@+id/opcion_b"
+            android:layout_marginTop="32dp"
+            android:visibility="visible" />
+        <Constraint
+            android:id="@+id/opcion_d"
+            motion:layout_constraintEnd_toEndOf="@+id/opcion_c"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/opcion_c"
+            motion:layout_constraintStart_toStartOf="@+id/opcion_c"
+            android:layout_marginTop="32dp"
+            android:visibility="visible" />
+    </ConstraintSet>
+    <ConstraintSet android:id="@+id/question_completed_end" >
+        <Constraint
+            android:id="@+id/respuesta_correcta"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:layout_marginEnd="32dp"
+            motion:layout_constraintTop_toBottomOf="@+id/view"
+            motion:layout_constraintStart_toStartOf="@+id/view"
+            android:layout_marginTop="32dp" />
+        <Constraint
+            android:id="@+id/descripcion"
+            motion:layout_constraintEnd_toEndOf="@+id/respuesta_correcta"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            motion:layout_constraintTop_toBottomOf="@+id/respuesta_correcta"
+            motion:layout_constraintStart_toStartOf="@+id/respuesta_correcta"
+            android:layout_marginTop="40dp" />
+        <Constraint
+            android:id="@+id/opcion_a"
+            motion:layout_constraintEnd_toEndOf="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/view"
+            motion:layout_constraintHorizontal_bias="1.0"
+            motion:layout_constraintStart_toStartOf="@+id/view"
+            android:layout_marginTop="120dp"
+            android:visibility="invisible" />
+        <Constraint
+            android:id="@+id/opcion_b"
+            motion:layout_constraintEnd_toEndOf="@+id/opcion_a"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/opcion_a"
+            motion:layout_constraintStart_toStartOf="@+id/opcion_a"
+            android:layout_marginTop="32dp"
+            android:visibility="invisible" />
+        <Constraint
+            android:id="@+id/opcion_c"
+            motion:layout_constraintEnd_toEndOf="@+id/opcion_b"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/opcion_b"
+            motion:layout_constraintStart_toStartOf="@+id/opcion_b"
+            android:layout_marginTop="32dp"
+            android:visibility="invisible" />
+        <Constraint
+            android:id="@+id/opcion_d"
+            motion:layout_constraintEnd_toEndOf="@+id/opcion_c"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/opcion_c"
+            motion:layout_constraintStart_toStartOf="@+id/opcion_c"
+            android:layout_marginTop="32dp"
+            android:visibility="invisible" />
+    </ConstraintSet>
+    <Transition
+        motion:constraintSetStart="@+id/question_completed_start"
+        motion:constraintSetEnd="@+id/question_completed_end" />
+    <ConstraintSet android:id="@+id/next_question_start" >
+        <Constraint
+            android:id="@+id/opcion_a"
+            motion:layout_constraintEnd_toEndOf="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/view"
+            motion:layout_constraintHorizontal_bias="1.0"
+            motion:layout_constraintStart_toStartOf="@+id/view"
+            android:layout_marginTop="120dp"
+            android:visibility="invisible" />
+        <Constraint
+            android:id="@+id/opcion_b"
+            motion:layout_constraintEnd_toEndOf="@+id/opcion_a"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/opcion_a"
+            motion:layout_constraintStart_toStartOf="@+id/opcion_a"
+            android:layout_marginTop="32dp"
+            android:visibility="invisible" />
+        <Constraint
+            android:id="@+id/opcion_c"
+            motion:layout_constraintEnd_toEndOf="@+id/opcion_b"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/opcion_b"
+            motion:layout_constraintStart_toStartOf="@+id/opcion_b"
+            android:layout_marginTop="32dp"
+            android:visibility="invisible" />
+        <Constraint
+            android:id="@+id/opcion_d"
+            motion:layout_constraintEnd_toEndOf="@+id/opcion_c"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/opcion_c"
+            motion:layout_constraintStart_toStartOf="@+id/opcion_c"
+            android:layout_marginTop="32dp"
+            android:visibility="invisible" />
+        <Constraint
+            android:id="@+id/pregunta"
+            motion:layout_constraintEnd_toEndOf="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="@+id/view"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            motion:layout_constraintTop_toTopOf="@+id/view"
+            motion:layout_constraintStart_toStartOf="@+id/view" />
+        <Constraint
+            android:id="@+id/esperando_resto"
+            motion:layout_constraintEnd_toEndOf="@+id/view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            motion:layout_constraintTop_toBottomOf="@+id/view"
+            motion:layout_constraintStart_toStartOf="@+id/view"
+            android:layout_marginTop="32dp" />
+        <Constraint
+            android:id="@+id/respuesta_correcta"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:layout_marginEnd="32dp"
+            motion:layout_constraintTop_toBottomOf="@+id/view"
+            motion:layout_constraintStart_toStartOf="@+id/view"
+            android:layout_marginTop="32dp" />
+        <Constraint
+            android:id="@+id/descripcion"
+            motion:layout_constraintEnd_toEndOf="@+id/respuesta_correcta"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            motion:layout_constraintTop_toBottomOf="@+id/respuesta_correcta"
+            motion:layout_constraintStart_toStartOf="@+id/respuesta_correcta"
+            android:layout_marginTop="40dp" />
+    </ConstraintSet>
+    <ConstraintSet android:id="@+id/next_question_end" >
+        <Constraint
+            android:id="@+id/opcion_a"
+            motion:layout_constraintEnd_toEndOf="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/view"
+            motion:layout_constraintHorizontal_bias="1.0"
+            motion:layout_constraintStart_toStartOf="@+id/view"
+            android:layout_marginTop="120dp"
+            android:visibility="visible" />
+        <Constraint
+            android:id="@+id/opcion_b"
+            motion:layout_constraintEnd_toEndOf="@+id/opcion_a"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/opcion_a"
+            motion:layout_constraintStart_toStartOf="@+id/opcion_a"
+            android:layout_marginTop="32dp"
+            android:visibility="visible" />
+        <Constraint
+            android:id="@+id/opcion_d"
+            motion:layout_constraintEnd_toEndOf="@+id/opcion_c"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/opcion_c"
+            motion:layout_constraintStart_toStartOf="@+id/opcion_c"
+            android:layout_marginTop="32dp"
+            android:visibility="visible" />
+        <Constraint
+            android:id="@+id/opcion_c"
+            motion:layout_constraintEnd_toEndOf="@+id/opcion_b"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/opcion_b"
+            motion:layout_constraintStart_toStartOf="@+id/opcion_b"
+            android:layout_marginTop="32dp"
+            android:visibility="visible" />
+        <Constraint
+            android:id="@+id/esperando_resto"
+            motion:layout_constraintEnd_toEndOf="@+id/view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            motion:layout_constraintTop_toBottomOf="@+id/view"
+            motion:layout_constraintStart_toStartOf="@+id/view"
+            android:layout_marginTop="32dp" />
+        <Constraint
+            android:id="@+id/respuesta_correcta"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:layout_marginEnd="32dp"
+            motion:layout_constraintTop_toBottomOf="@+id/view"
+            motion:layout_constraintStart_toStartOf="@+id/view"
+            android:layout_marginTop="32dp" />
+        <Constraint
+            android:id="@+id/descripcion"
+            motion:layout_constraintEnd_toEndOf="@+id/respuesta_correcta"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            motion:layout_constraintTop_toBottomOf="@+id/respuesta_correcta"
+            motion:layout_constraintStart_toStartOf="@+id/respuesta_correcta"
+            android:layout_marginTop="40dp" />
+    </ConstraintSet>
+    <Transition
+        motion:constraintSetStart="@+id/next_question_start"
+        motion:constraintSetEnd="@+id/next_question_end" />
+</MotionScene>
