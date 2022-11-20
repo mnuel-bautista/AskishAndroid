@@ -71,7 +71,7 @@ class FragmentRegistro : Fragment() {
                     correo.toString(), password.toString()
                 ).addOnCompleteListener {
                     if (it.isSuccessful) {
-                        db.collection("usuarios").document(correo.toString()).set(usuario) //UID
+                        db.collection("usuarios").document(it.result.user!!.uid).set(usuario) //UID
                         findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
                     } else {
                         showAlert()

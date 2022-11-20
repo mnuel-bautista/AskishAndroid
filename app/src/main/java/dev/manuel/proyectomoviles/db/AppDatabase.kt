@@ -1,5 +1,7 @@
 package dev.manuel.proyectomoviles.db
 
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -17,6 +19,13 @@ class AppDatabase {
                 .setPersistenceEnabled(false)
                 .build()
             firestoreSettings = settings
+        }
+    }
+
+    val auth = Firebase.auth.apply {
+        val host = BuildConfig.HOST
+        if(host != "") {
+            FirebaseAuth.getInstance().useEmulator(host, 9099)
         }
     }
 
