@@ -33,9 +33,12 @@ android {
     buildFeatures {
         viewBinding true
     }
+    namespace 'dev.manuel.proyectomoviles'
 }
 
 dependencies {
+    implementation platform('com.google.firebase:firebase-bom:31.0.2')
+
     implementation platform('com.google.firebase:firebase-bom:31.0.2')
 
     implementation 'androidx.core:core-ktx:1.8.0'

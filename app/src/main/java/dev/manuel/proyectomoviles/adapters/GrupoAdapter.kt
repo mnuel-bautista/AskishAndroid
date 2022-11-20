@@ -29,7 +29,6 @@ class GrupoAdapter: RecyclerView.Adapter<GrupoAdapter.NombreViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        println("Tamaño del array en adaptador: ${listNombres.size}")
         return listNombres.size
     }
 }

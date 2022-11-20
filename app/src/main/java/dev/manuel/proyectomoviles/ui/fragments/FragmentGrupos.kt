@@ -21,10 +21,11 @@ class FragmentGrupos : Fragment() {
     private val nombre = ArrayList<String>()
 
     private lateinit var binding: FragmentGruposBinding
+    val idUsuario = "hcBYmE4It2lsjb1KYD9J"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        leerGrupos()
     }
 
     override fun onCreateView(
@@ -33,21 +34,16 @@ class FragmentGrupos : Fragment() {
         return inflater.inflate(R.layout.fragment_grupos, container, false)
     }
 
-    //CODIGO AGREGADO
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentGruposBinding.bind(view)
 
-        //Referenciar al layout del recycleview
         recycleView = binding.recycleView
         recycleView.layoutManager = LinearLayoutManager(requireContext())
         recycleView.adapter = GrupoAdapter()
-
-        leer()
     }
 
-    private fun leer() {
-
+    private fun leerGrupos() {
         //Mostrar los grupos a los que pertenece el usuario
 //        db.collection("grupos").whereEqualTo("codigo", "1122")
 //            .get()
@@ -55,17 +51,16 @@ class FragmentGrupos : Fragment() {
 //                it.documents.first().reference.update(mapOf("integrantes.asdfasdfasd" to true))
 //            }
 
-//        db.collection("grupos").whereEqualTo("integrantes.aSDFASDFasdfasd", true).addSnapshotListener{ value, e ->
-//            for (doc in value!!){
-//                doc.getString("nombre")?.let {
-//                    nombre.add(it)
-//                }
-//            }
-//            if (nombre.isNotEmpty()){
-//                (recycleView.adapter as GrupoAdapter).setListNames(nombre)
-//            }
-//            println("Array $nombre")
-//        }
+        db.collection("grupos").whereEqualTo("integrantes.$idUsuario", true).addSnapshotListener{ value, e ->
+            for (doc in value!!){
+                doc.getString("nombre")?.let {
+                    nombre.add(it)
+                }
+            }
+            if (nombre.isNotEmpty()){
+                (recycleView.adapter as GrupoAdapter).setListNames(nombre)
+            }
+            println("Array $nombre")
+        }
     }
-
 }

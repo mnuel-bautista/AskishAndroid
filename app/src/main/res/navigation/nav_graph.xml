@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/fragmentGrupos">
 
     <fragment
         android:id="@+id/FirstFragment"
@@ -27,17 +27,45 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentGrupos"
-        android:name="dev.manuel.proyectomoviles.FragmentGrupos"
+        android:name="dev.manuel.proyectomoviles.ui.fragments.FragmentGrupos"
         android:label="fragment_grupos"
         tools:layout="@layout/fragment_grupos" />
     <fragment
         android:id="@+id/fragmentCuestionarios"
-        android:name="dev.manuel.proyectomoviles.FragmentCuestionarios"
+        android:name="dev.manuel.proyectomoviles.ui.fragments.FragmentCuestionarios"
         android:label="fragment_cuestionarios"
         tools:layout="@layout/fragment_cuestionarios" />
     <fragment
         android:id="@+id/fragmentCuestionario"
-        android:name="dev.manuel.proyectomoviles.FragmentCuestionario"
+        android:name="dev.manuel.proyectomoviles.ui.fragments.FragmentCuestionario"
         android:label="fragment_cuestionario"
         tools:layout="@layout/fragment_cuestionario" />
+    <fragment
+        android:id="@+id/fragmentSalaEspera"
+        android:name="dev.manuel.proyectomoviles.FragmentSalaEspera"
+        android:label="fragment_sala_espera"
+        tools:layout="@layout/fragment_sala_espera" >
+        <action
+            android:id="@+id/action_fragmentSalaEspera_to_fragmentPreguntas"
+            app:destination="@id/fragmentPreguntas" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentPreguntas"
+        android:name="dev.manuel.proyectomoviles.FragmentPreguntas"
+        android:label="fragment_preguntas"
+        tools:layout="@layout/fragment_preguntas" >
+        <action
+            android:id="@+id/action_fragmentPreguntas_to_fragmentCuestionarioCompletado"
+            app:destination="@id/fragmentCuestionarioCompletado" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentCuestionarioCompletado"
+        android:name="dev.manuel.proyectomoviles.FragmentCuestionarioCompletado"
+        android:label="fragment_cuestionario_completado"
+        tools:layout="@layout/fragment_cuestionario_completado" />
+    <fragment
+        android:id="@+id/fragmentSalas"
+        android:name="dev.manuel.proyectomoviles.FragmentSalas"
+        android:label="fragment_salas"
+        tools:layout="@layout/fragment_salas" />
 </navigation>
