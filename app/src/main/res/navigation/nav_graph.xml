@@ -68,7 +68,7 @@
     <fragment
         android:id="@+id/fragmentCuestionarioCompletado"
         android:name="dev.manuel.proyectomoviles.FragmentCuestionarioCompletado"
-        android:label="fragment_cuestionario_completado"
+        android:label=" "
         tools:layout="@layout/fragment_cuestionario_completado" />
     <fragment
         android:id="@+id/fragmentSalas"
