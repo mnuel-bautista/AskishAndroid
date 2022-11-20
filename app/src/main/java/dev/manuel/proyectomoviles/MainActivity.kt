@@ -55,6 +55,7 @@ class MainActivity : AppCompatActivity() {
 
         findNavController(R.id.nav_host_fragment_content_main)
             .addOnDestinationChangedListener { _, destination, _ ->
+                binding.fab.setOnClickListener {  }
             when(destination.id) {
                 R.id.fragmentPreguntas, R.id.fragmentCuestionarioCompletado,
                 R.id.fragmentSalaEspera, R.id.FragmentLogin, R.id.FragmentRegistro -> {
