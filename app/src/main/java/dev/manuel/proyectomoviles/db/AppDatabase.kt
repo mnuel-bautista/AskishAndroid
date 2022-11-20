@@ -7,7 +7,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import dev.manuel.proyectomoviles.BuildConfig
 
-class AppDatabase {
+class AppDatabase private constructor() {
 
     val firestore = Firebase.firestore.apply {
         val host = BuildConfig.HOST
@@ -25,7 +25,7 @@ class AppDatabase {
     val auth = Firebase.auth.apply {
         val host = BuildConfig.HOST
         if(host != "") {
-            FirebaseAuth.getInstance().useEmulator(host, 9099)
+            FirebaseAuth.getInstance().useEmulator(host , 9099)
         }
     }
 
