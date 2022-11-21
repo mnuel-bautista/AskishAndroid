@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     android:label=" "
-    app:startDestination="@id/FragmentLogin">
+    app:startDestination="@id/fragmentGrupos">
 
     <fragment
         android:id="@+id/FragmentLogin"
@@ -38,7 +38,11 @@
         android:id="@+id/fragmentCuestionarios"
         android:name="dev.manuel.proyectomoviles.ui.fragments.FragmentCuestionarios"
         android:label="Cuestionarios"
-        tools:layout="@layout/fragment_cuestionarios" />
+        tools:layout="@layout/fragment_cuestionarios" >
+        <action
+            android:id="@+id/action_fragmentCuestionarios_to_fragmentCuestionario"
+            app:destination="@id/fragmentCuestionario" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentCuestionario"
         android:name="dev.manuel.proyectomoviles.ui.fragments.FragmentCuestionario"

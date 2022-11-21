@@ -3,19 +3,12 @@ package dev.manuel.proyectomoviles.ui.fragments
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
-import android.widget.TextView
 import android.widget.Toast
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.ListFragment
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
+import androidx.navigation.fragment.findNavController
 import dev.manuel.proyectomoviles.R
 
 
@@ -47,11 +40,7 @@ class FragmentCuestionarios : Fragment(){
 //                val transaction = fragmentManager?.beginTransaction()
 //                transaction?.replace(R.id.ejemplo,fragmentCuesti)?.commit()
                 Toast.makeText(requireContext(), "HOLAAAAA", Toast.LENGTH_SHORT).show()
-                parentFragmentManager.commit {
-                    replace<FragmentCuestionario>(R.id.layoutCuestionarios)
-                    setReorderingAllowed(true)
-                    addToBackStack(null)
-                }
+                findNavController().navigate(R.id.fragmentCuestionario)
             }
 
 

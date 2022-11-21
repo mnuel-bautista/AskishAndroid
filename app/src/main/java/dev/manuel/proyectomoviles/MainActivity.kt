@@ -1,7 +1,6 @@
 package dev.manuel.proyectomoviles
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.navigation.findNavController
@@ -47,20 +46,18 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.bottomNavigation.setupWithNavController(navController)
 
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAnchorView(R.id.fab)
-                .setAction("Action", null).show()
-        }
-
         findNavController(R.id.nav_host_fragment_content_main)
             .addOnDestinationChangedListener { _, destination, _ ->
                 binding.fab.setOnClickListener {  }
             when(destination.id) {
                 R.id.fragmentPreguntas, R.id.fragmentCuestionarioCompletado,
-                R.id.fragmentSalaEspera, R.id.FragmentLogin, R.id.FragmentRegistro -> {
+                R.id.fragmentSalaEspera, R.id.FragmentLogin, R.id.FragmentRegistro, R.id.fragmentCuestionario -> {
                     binding.fab.visibility = View.INVISIBLE
                     binding.bottomNavigation.visibility = View.INVISIBLE
+                }
+                R.id.fragmentCuestionarios, R.id.fragmentSalas -> {
+                    binding.fab.visibility = View.INVISIBLE
+                    binding.bottomNavigation.visibility = View.VISIBLE
                 }
                 R.id.fragmentGrupos -> {
                     binding.fab.setOnClickListener {
