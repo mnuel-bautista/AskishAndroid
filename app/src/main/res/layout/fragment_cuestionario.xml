@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.FragmentCuestionario">
+    tools:context=".ui.fragments.FragmentCuestionario"
+    android:background="@color/white">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -15,6 +16,7 @@
             android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listaPreguntas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
