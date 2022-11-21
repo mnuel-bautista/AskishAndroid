@@ -41,7 +41,7 @@ class FragmentCuestionarios : Fragment(){
         lv.adapter = arrayAdapter
 
         lv.setOnItemClickListener { adapterView, view, i, l ->
-            if (i == 2){
+            if (i == 0){
 
 //                val fragmentCuesti = FragmentCuestionario()
 //                val transaction = fragmentManager?.beginTransaction()
