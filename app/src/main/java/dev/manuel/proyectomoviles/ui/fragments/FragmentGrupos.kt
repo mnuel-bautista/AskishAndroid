@@ -12,15 +12,16 @@ import com.google.firebase.ktx.Firebase
 import dev.manuel.proyectomoviles.R
 import dev.manuel.proyectomoviles.adapters.GrupoAdapter
 import dev.manuel.proyectomoviles.databinding.FragmentGruposBinding
+import dev.manuel.proyectomoviles.db.AppDatabase
 
 
 class FragmentGrupos : Fragment() {
 
     private lateinit var recycleView: RecyclerView
-    private val db = Firebase.firestore
-    private val nombre = ArrayList<String>()
+    private val firestore = AppDatabase.getDatabase()?.firestore
 
     private lateinit var binding: FragmentGruposBinding
+
     val idUsuario = "hcBYmE4It2lsjb1KYD9J"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,16 +52,20 @@ class FragmentGrupos : Fragment() {
 //                it.documents.first().reference.update(mapOf("integrantes.asdfasdfasd" to true))
 //            }
 
-        db.collection("grupos").whereEqualTo("integrantes.$idUsuario", true).addSnapshotListener{ value, e ->
-            for (doc in value!!){
-                doc.getString("nombre")?.let {
-                    nombre.add(it)
+        val nombre = ArrayList<String>()
+
+        firestore?.collection("grupos")
+            ?.whereEqualTo("integrantes.$idUsuario", true)
+            ?.addSnapshotListener{ value, e ->
+                for (doc in value!!){
+                    doc.getString("nombre")?.let {
+                        nombre.add(it)
+                    }
                 }
-            }
-            if (nombre.isNotEmpty()){
-                (recycleView.adapter as GrupoAdapter).setListNames(nombre)
-            }
-            println("Array $nombre")
+                if (nombre.isNotEmpty()){
+                    (recycleView.adapter as GrupoAdapter).setListNames(nombre)
+                }
+                println("Array $nombre")
         }
     }
 }

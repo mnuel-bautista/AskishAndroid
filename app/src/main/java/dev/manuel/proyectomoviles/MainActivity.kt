@@ -1,7 +1,6 @@
 package dev.manuel.proyectomoviles
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.navigation.findNavController
@@ -12,6 +11,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.core.view.MenuProvider
 import androidx.navigation.ui.setupWithNavController
 import dev.manuel.proyectomoviles.databinding.ActivityMainBinding
@@ -47,10 +47,6 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.bottomNavigation.setupWithNavController(navController)
 
-        binding.fab.setOnClickListener { view ->
-            
-        }
-
         findNavController(R.id.nav_host_fragment_content_main)
             .addOnDestinationChangedListener { _, destination, _ ->
                 binding.fab.setOnClickListener {  }
@@ -62,7 +58,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.fragmentGrupos -> {
                     binding.fab.setOnClickListener {
-
+                        Toast.makeText(this, "Listener del botón fab", Toast.LENGTH_SHORT).show()
                     }
                 }
                 else -> {
