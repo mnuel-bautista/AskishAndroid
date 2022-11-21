@@ -64,6 +64,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="14dp"
         android:text="@string/btnLogin01"
+        android:backgroundTint="#6750A4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnReg"
         app:layout_constraintTop_toBottomOf="@+id/txtPass" />
@@ -75,6 +76,7 @@
         android:layout_marginStart="14dp"
         android:layout_marginEnd="8dp"
         android:text="@string/btnLogin02"
+        android:backgroundTint="#6750A4"
         app:layout_constraintEnd_toStartOf="@+id/btnIngresar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btnIngresar" />
@@ -116,6 +118,7 @@
         android:layout_marginStart="62dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="61dp"
+        android:backgroundTint="#6750A4"
         android:drawableLeft="@android:drawable/stat_sys_phone_call"
         android:text="@string/btnLogin04"
         app:layout_constraintEnd_toEndOf="parent"
