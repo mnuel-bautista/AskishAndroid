@@ -6,14 +6,20 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import android.widget.TextView
+import android.widget.Toast
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.ListFragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import dev.manuel.proyectomoviles.R
 
 
-class FragmentCuestionarios : Fragment() {
+class FragmentCuestionarios : Fragment(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +27,6 @@ class FragmentCuestionarios : Fragment() {
     //EJEMPLO
     lateinit var arrayAdapter:ArrayAdapter<*>
     lateinit var lv:ListView
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,18 +39,28 @@ class FragmentCuestionarios : Fragment() {
         lv = root.findViewById(R.id.listaCuesti)
         arrayAdapter = ArrayAdapter(requireContext(),android.R.layout.simple_list_item_1, cuestio) //requireContext() porque es fragment
         lv.adapter = arrayAdapter
-/*
-        lv.setOnClickListener (){
-            parentFragmentManager.commit {
-                replace<FragmentCuestionario>(R.id.fragmentCuestionarios)
-                setReorderingAllowed(true)
-                addToBackStack("principal")
+
+        lv.setOnItemClickListener { adapterView, view, i, l ->
+            if (i == 0){
+
+//                val fragmentCuesti = FragmentCuestionario()
+//                val transaction = fragmentManager?.beginTransaction()
+//                transaction?.replace(R.id.ejemplo,fragmentCuesti)?.commit()
+                Toast.makeText(requireContext(), "HOLAAAAA", Toast.LENGTH_SHORT).show()
+                parentFragmentManager.commit {
+                    replace<FragmentCuestionario>(R.id.layoutCuestionarios)
+                    setReorderingAllowed(true)
+                    addToBackStack(null)
+                }
             }
+
+
+
         }
-*/
+
+
+
         return root
     }
-
-
 
 }
