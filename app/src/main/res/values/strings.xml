@@ -44,5 +44,29 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
     <!-- TODO: Remove or change this placeholder text -->
+
+    <!-- Strings -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="SLogin01">¡Bienvenido! Es bueno tenerte de vuelta</string>
+    <string name="SLogin02">O ingresa con</string>
+    <string name="SReg01">¿Nuevo usuario?</string>
+    <string name="SReg02">Llena los siguientes campos para completar el registro:</string>
+
+    <!-- Hints -->
+
+    <string name="HintLogin01">Correo electrónico</string>
+    <string name="HintLogin02">Contraseña</string>
+    <string name="HintReg01">Nombre</string>
+    <string name="HintReg02">Username</string>
+
+    <!-- BTN Texts -->
+
+    <string name="btnLogin01">Ingresar con correo</string>
+    <string name="btnLogin02">Registrar con correo</string>
+    <string name="btnLogin03">Ingresar con Google</string>
+    <string name="btnLogin04">Ingresar con número de teléfono</string>
+    <string name="btnReg01">Volver</string>
+    <string name="btnReg02">Registrar</string>
+
+
 </resources>

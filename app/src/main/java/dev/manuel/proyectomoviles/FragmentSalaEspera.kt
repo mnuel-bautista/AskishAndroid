@@ -1,23 +1,25 @@
 package dev.manuel.proyectomoviles
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.firestore.*
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+import dev.manuel.proyectomoviles.db.AppDatabase
 
 class FragmentSalaEspera : Fragment() {
 
-    private val firestore = Firebase.firestore
+    private val database: AppDatabase? = AppDatabase.getDatabase()
 
     private lateinit var listenerRegistration: ListenerRegistration
 
-    private lateinit var userId: String
+    private var status = ""
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,29 +31,31 @@ class FragmentSalaEspera : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        firestore.collection("usuarios")
-            .whereEqualTo("email", "garcia.manuel.bss@gmail.com")
-            .get()
-            .addOnSuccessListener(::onUserRetrieved)
+        onUserRetrieved()
     }
 
-    private fun onUserRetrieved(snapshot: QuerySnapshot) {
-        if(snapshot.isEmpty) return
-        userId = snapshot.documents.first().id
+    private fun onUserRetrieved() {
+        val salaArg = arguments?.getString("salaId") ?: ""
+        listenerRegistration = database?.firestore?.document("salas/$salaArg")
+            ?.addSnapshotListener { value, _ ->
 
-        val sala = snapshot.first().getString("sala")
-        //User is in an active room
-        if(sala != null) {
-            listenerRegistration = firestore.collection("salas")
-                .document(sala)
-                .addSnapshotListener { value, error ->
-                    if(value?.getBoolean("esperando") == false) {
-                        val args = bundleOf("sala" to sala, "userId" to userId)
+                if(status == value?.getString("estado_sala")) {
+                    return@addSnapshotListener
+                }
+
+                if(value != null) {
+                    if(value.getString("estado_sala") == "In Progress") {
+                        val args = bundleOf("salaId" to value.id, "userId" to "jaYl9hlDSAHCTWzA2ez5YWc1VhrQ")
+                        status = value.getString("estado_sala") ?: ""
                         findNavController().navigate(R.id.action_fragmentSalaEspera_to_fragmentPreguntas, args)
                     }
                 }
-        }
+            }!!
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
     }
 
     override fun onDestroyView() {
