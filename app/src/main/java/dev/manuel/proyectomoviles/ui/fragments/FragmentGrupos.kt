@@ -46,19 +46,19 @@ class FragmentGrupos : Fragment() {
 
     private fun leerGrupos() {
         //Mostrar los grupos a los que pertenece el usuario
-//        db.collection("grupos").whereEqualTo("codigo", "1122")
+//        db.collection("groups").whereEqualTo("code", "1122")
 //            .get()
 //            .addOnSuccessListener {
-//                it.documents.first().reference.update(mapOf("integrantes.asdfasdfasd" to true))
+//                it.documents.first().reference.update(mapOf("members.asdfasdfasd" to true))
 //            }
 
         val nombre = ArrayList<String>()
 
-        firestore?.collection("grupos")
-            ?.whereEqualTo("integrantes.$idUsuario", true)
+        firestore?.collection("groups")
+            ?.whereEqualTo("members.$idUsuario", true)
             ?.addSnapshotListener{ value, e ->
                 for (doc in value!!){
-                    doc.getString("nombre")?.let {
+                    doc.getString("group")?.let {
                         nombre.add(it)
                     }
                 }
