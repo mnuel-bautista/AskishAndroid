@@ -60,6 +60,8 @@ class MainActivity : AppCompatActivity() {
                     binding.bottomNavigation.visibility = View.VISIBLE
                 }
                 R.id.fragmentGrupos -> {
+                    binding.fab.visibility = View.VISIBLE
+                    binding.bottomNavigation.visibility = View.VISIBLE
                     binding.fab.setOnClickListener {
 
                     }
