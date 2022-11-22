@@ -87,7 +87,7 @@ class FragmentLogin : Fragment() {
                                             "${document.data["username"]}"
                                         )
                                     }
-                                    findNavController().navigate(R.id.fragmentGrupos)
+                                    findNavController().navigate(R.id.action_FirstFragment_to_fragmentGrupos)
                                 }
                         } else {
                             showAlert()
