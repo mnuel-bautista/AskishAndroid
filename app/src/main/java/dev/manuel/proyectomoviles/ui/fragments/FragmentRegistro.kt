@@ -9,10 +9,6 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.button.MaterialButton
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import dev.manuel.proyectomoviles.R
 import dev.manuel.proyectomoviles.dataClass.Usuario
 import dev.manuel.proyectomoviles.databinding.FragmentRegistroBinding
@@ -44,7 +40,7 @@ class FragmentRegistro : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentRegistroBinding.inflate(inflater, container, false)
         return binding.root
@@ -54,13 +50,10 @@ class FragmentRegistro : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //auth = Firebase.auth
-        val db = Firebase.firestore
 
         nombre = view.findViewById(R.id.txtNombre)
         username = view.findViewById(R.id.txtUsername)
         password = view.findViewById(R.id.txtPass)
-        correo = view.findViewById(R.id.txtCorreo)
 
         btnConfirmar = view.findViewById(R.id.btnConfirmar)
         btnVolver = view.findViewById(R.id.btnVolver)
@@ -72,11 +65,11 @@ class FragmentRegistro : Fragment() {
                 password.toString().isNotEmpty()
             ) {
 
-                FirebaseAuth.getInstance().createUserWithEmailAndPassword(
+                auth?.createUserWithEmailAndPassword(
                     correo.toString(), password.toString()
-                ).addOnCompleteListener {
+                )?.addOnCompleteListener {
                     if (it.isSuccessful) {
-                        db.collection("usuarios").document(it.result.user!!.uid).set(usuario) //UID
+                        firestore?.collection("usuarios")?.document(it.result.user!!.uid)?.set(usuario) //UID
                         findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
                     } else {
                         showAlert()

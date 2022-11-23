@@ -62,7 +62,7 @@
     <!-- BTN Texts -->
 
     <string name="btnLogin01">Ingresar con correo</string>
-    <string name="btnLogin02">Registrar con correo</string>
+    <string name="btnLogin02">Crear cuenta</string>
     <string name="btnLogin03">Ingresar con Google</string>
     <string name="btnLogin04">Ingresar con número de teléfono</string>
     <string name="btnReg01">Volver</string>

@@ -1,37 +1,24 @@
 package dev.manuel.proyectomoviles.ui.fragments
 
-import android.app.AlertDialog
-import android.content.Intent
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import androidx.fragment.app.findFragment
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
+import androidx.core.content.edit
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.textfield.TextInputLayout
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.manuel.proyectomoviles.R
+import dev.manuel.proyectomoviles.UserCredentialsPreferences
 import dev.manuel.proyectomoviles.dataClass.Usuario
 import dev.manuel.proyectomoviles.databinding.FragmentLoginBinding
-import dev.manuel.proyectomoviles.databinding.FragmentRegistroBinding
 import dev.manuel.proyectomoviles.db.AppDatabase
+import dev.manuel.proyectomoviles.getUserId
 
 
 class FragmentLogin : Fragment() {
-    private lateinit var correo: EditText
-    private lateinit var password: EditText
-    private lateinit var btnIngresar: MaterialButton
-    private lateinit var btnRegistrar:MaterialButton
-    private lateinit var btnGoogle:MaterialButton
-    private lateinit var btnNumero:MaterialButton
+
     private lateinit var usuario: Usuario
     private val firestore = AppDatabase.getDatabase()?.firestore
     private val auth = AppDatabase.getDatabase()?.auth
@@ -47,6 +34,10 @@ class FragmentLogin : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        val userId = requireActivity().getUserId()
+        if(userId != "") {
+            findNavController().navigate(R.id.action_FragmentLogin_to_fragmentGrupos)
+        }
 
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
@@ -55,43 +46,28 @@ class FragmentLogin : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        //auth = Firebase.auth
-        val db = Firebase.firestore
-
-        correo = view.findViewById(R.id.txtCorreo)
-        password = view.findViewById(R.id.txtPass)
-
-        btnRegistrar = view.findViewById(R.id.btnReg)
-        btnIngresar = view.findViewById(R.id.btnIngresar)
-
-        btnGoogle = view.findViewById(R.id.btnGoogle)
-        btnNumero = view.findViewById(R.id.btnTelefono)
-
-        btnRegistrar.setOnClickListener{
+        val preferences = requireActivity().getSharedPreferences(UserCredentialsPreferences, Context.MODE_PRIVATE)
+        binding.btnReg.setOnClickListener{
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
 
-        btnIngresar.setOnClickListener {
-            if (correo.toString().isNotEmpty() && password.toString().isNotEmpty()) {
-                auth?.signInWithEmailAndPassword(correo.toString(), password.toString())
-                    ?.addOnCompleteListener{
-                        if(it.isSuccessful){
-                            db.collection("usuarios").whereEqualTo("correo", correo.toString())
-                                .get().addOnSuccessListener { documents ->
+        binding.btnIngresar.setOnClickListener {
+            val emailField = binding.userEmailEditText.editText?.editableText?.toString()
+            val passwordField = binding.userPasswordText.editableText.toString()
 
-                                    for (document in documents){
-                                        usuario = Usuario(
-                                            "${document.data["correo"]}",
-                                            "${document.data["nombre"]}",
-                                            "${document.data["username"]}"
-                                        )
-                                    }
-                                    findNavController().navigate(R.id.action_FirstFragment_to_fragmentGrupos)
-                                }
+            if (emailField?.isNotEmpty() == true && passwordField.isNotEmpty()) {
+                auth?.signInWithEmailAndPassword(emailField, passwordField)
+                    ?.addOnCompleteListener{ res ->
+                        if(res.isSuccessful){
+                            preferences.edit(commit = true) {
+                                putString("userId", res.result.user?.uid)
+                            }
+                            findNavController().navigate(R.id.action_FragmentLogin_to_fragmentGrupos)
                         } else {
                             showAlert()
                         }
+                    }?.addOnFailureListener {
+                        it
                     }
             }
         }
@@ -103,12 +79,13 @@ class FragmentLogin : Fragment() {
         _binding = null
     }
 
-    fun showAlert(): AlertDialog? {
-        val builder = AlertDialog.Builder(activity)
-        builder.setTitle("Oh no... ¡Un error!")
+    fun showAlert() {
+
+        val builder = MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Oh no... ¡Un error!")
             .setMessage("Ha ocurrido un error, intente de nuevo.")
             .setPositiveButton("Ok", null)
-        return builder.create()
+        builder.show()
     }
 }
 

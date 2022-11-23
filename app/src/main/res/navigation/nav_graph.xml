@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     android:label=" "
-    app:startDestination="@id/fragmentGrupos">
+    app:startDestination="@id/FragmentLogin">
 
     <fragment
         android:id="@+id/FragmentLogin"
@@ -16,8 +16,10 @@
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/FragmentRegistro" />
         <action
-            android:id="@+id/action_FirstFragment_to_fragmentGrupos"
-            app:destination="@id/fragmentGrupos" />
+            android:id="@+id/action_FragmentLogin_to_fragmentGrupos"
+            app:destination="@id/fragmentGrupos"
+            app:popUpTo="@id/FragmentLogin"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/FragmentRegistro"
@@ -87,4 +89,9 @@
             android:id="@+id/action_fragmentSalas_to_fragmentSalaEspera"
             app:destination="@id/fragmentSalaEspera" />
     </fragment>
+    <action
+        android:id="@+id/action_global_FragmentLogin"
+        app:destination="@id/FragmentLogin"
+        app:popUpTo="@id/nav_graph"
+        app:popUpToInclusive="true" />
 </navigation>

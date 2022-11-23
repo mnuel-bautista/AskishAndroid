@@ -15,83 +15,43 @@
         android:layout_marginStart="9dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="9dp"
-        android:layout_marginBottom="16dp"
         android:text="@string/SLogin01"
+        android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toTopOf="@+id/txtCorreo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/txtCorreo"
-        android:layout_width="316dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="39dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="57dp"
-        android:ems="10"
-        android:hint="@string/HintLogin01"
-        android:importantForAutofill="no"
-        android:inputType="textEmailAddress"
-        android:textColor="#ff2E3133"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-    <EditText
-        android:id="@+id/txtPass"
-        android:layout_width="315dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="39dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="57dp"
-        android:ems="10"
-        android:hint="@string/HintLogin02"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtCorreo"
-        tools:ignore="TextContrastCheck" />
-
     <Button
         android:id="@+id/btnIngresar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="14dp"
-        android:text="@string/btnLogin01"
+        android:layout_marginTop="32dp"
         android:backgroundTint="#6750A4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnReg"
-        app:layout_constraintTop_toBottomOf="@+id/txtPass" />
+        android:text="@string/btnLogin01"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
     <Button
         android:id="@+id/btnReg"
-        android:layout_width="wrap_content"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/btnLogin02"
-        android:backgroundTint="#6750A4"
         app:layout_constraintEnd_toStartOf="@+id/btnIngresar"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
         app:layout_constraintTop_toTopOf="@+id/btnIngresar" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="163dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="163dp"
         android:text="@string/SLogin02"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnIngresar" />
 
@@ -116,7 +76,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="62dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="61dp"
         android:backgroundTint="#6750A4"
         android:drawableLeft="@android:drawable/stat_sys_phone_call"
@@ -124,4 +84,37 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/userEmailEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Correo electrónico" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        app:layout_constraintEnd_toEndOf="@+id/userEmailEditText"
+        app:layout_constraintStart_toStartOf="@+id/userEmailEditText"
+        app:layout_constraintTop_toBottomOf="@+id/userEmailEditText">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/userPasswordText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Contraseña" />
+    </com.google.android.material.textfield.TextInputLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
