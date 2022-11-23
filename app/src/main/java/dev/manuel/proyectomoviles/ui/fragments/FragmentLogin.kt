@@ -22,6 +22,7 @@ import dev.manuel.proyectomoviles.R
 import dev.manuel.proyectomoviles.dataClass.Usuario
 import dev.manuel.proyectomoviles.databinding.FragmentLoginBinding
 import dev.manuel.proyectomoviles.databinding.FragmentRegistroBinding
+import dev.manuel.proyectomoviles.db.AppDatabase
 
 
 class FragmentLogin : Fragment() {
@@ -32,7 +33,8 @@ class FragmentLogin : Fragment() {
     private lateinit var btnGoogle:MaterialButton
     private lateinit var btnNumero:MaterialButton
     private lateinit var usuario: Usuario
-    private lateinit var auth: FirebaseAuth
+    private val firestore = AppDatabase.getDatabase()?.firestore
+    private val auth = AppDatabase.getDatabase()?.auth
 
     private var _binding: FragmentLoginBinding? = null
 
@@ -54,7 +56,7 @@ class FragmentLogin : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        auth = Firebase.auth
+        //auth = Firebase.auth
         val db = Firebase.firestore
 
         correo = view.findViewById(R.id.txtCorreo)
@@ -72,24 +74,25 @@ class FragmentLogin : Fragment() {
 
         btnIngresar.setOnClickListener {
             if (correo.toString().isNotEmpty() && password.toString().isNotEmpty()) {
-                auth.signInWithEmailAndPassword(correo.toString(), password.toString()).addOnCompleteListener{
-                    if(it.isSuccessful){
-                        db.collection("usuarios").whereEqualTo("correo", correo.toString())
-                            .get().addOnSuccessListener { documents ->
+                auth?.signInWithEmailAndPassword(correo.toString(), password.toString())
+                    ?.addOnCompleteListener{
+                        if(it.isSuccessful){
+                            db.collection("usuarios").whereEqualTo("correo", correo.toString())
+                                .get().addOnSuccessListener { documents ->
 
-                                for (document in documents){
-                                    usuario = Usuario(
-                                        "${document.data["correo"]}",
-                                        "${document.data["nombre"]}",
-                                        "${document.data["username"]}"
-                                    )
+                                    for (document in documents){
+                                        usuario = Usuario(
+                                            "${document.data["correo"]}",
+                                            "${document.data["nombre"]}",
+                                            "${document.data["username"]}"
+                                        )
+                                    }
+                                    findNavController().navigate(R.id.action_FirstFragment_to_fragmentGrupos)
                                 }
-                                findNavController().navigate(R.id.fragmentGrupos)
-                            }
-                    } else {
-                        showAlert()
+                        } else {
+                            showAlert()
+                        }
                     }
-                }
             }
         }
 

@@ -16,6 +16,7 @@ import com.google.firebase.ktx.Firebase
 import dev.manuel.proyectomoviles.R
 import dev.manuel.proyectomoviles.dataClass.Usuario
 import dev.manuel.proyectomoviles.databinding.FragmentRegistroBinding
+import dev.manuel.proyectomoviles.db.AppDatabase
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -25,10 +26,13 @@ class FragmentRegistro : Fragment() {
     private lateinit var username: EditText
     private lateinit var correo: EditText
     private lateinit var password: EditText
-    private lateinit var auth:FirebaseAuth
+   // private lateinit var auth:FirebaseAuth
 
     private lateinit var btnConfirmar: MaterialButton
     private lateinit var btnVolver: MaterialButton
+    private val firestore = AppDatabase.getDatabase()?.firestore
+    private val auth = AppDatabase.getDatabase()?.auth
+
 
 
     private var _binding: FragmentRegistroBinding? = null
@@ -50,7 +54,7 @@ class FragmentRegistro : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        auth = Firebase.auth
+        //auth = Firebase.auth
         val db = Firebase.firestore
 
         nombre = view.findViewById(R.id.txtNombre)
@@ -67,6 +71,7 @@ class FragmentRegistro : Fragment() {
             if (correo.toString().isNotEmpty() &&
                 password.toString().isNotEmpty()
             ) {
+
                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(
                     correo.toString(), password.toString()
                 ).addOnCompleteListener {
