@@ -10,11 +10,14 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.core.content.edit
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.MenuProvider
 import androidx.navigation.ui.setupWithNavController
+import com.google.firebase.auth.FirebaseAuth
 import dev.manuel.proyectomoviles.databinding.ActivityMainBinding
 import dev.manuel.proyectomoviles.db.AppDatabase
 
@@ -75,6 +78,19 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
+
+        addOrRemoveMenu()
+    }
+
+    fun addOrRemoveMenu() {
+        findNavController(R.id.nav_host_fragment_content_main).addOnDestinationChangedListener { _, destination, _ ->
+            when(destination.id) {
+                R.id.fragmentGrupos, R.id.fragmentCuestionarios, R.id.fragmentSalas -> {
+                    addMenu(auth)
+                }
+                else -> removeMenu()
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -117,6 +133,41 @@ fun Activity.removeUserId() {
 
 fun Activity.getUserId(): String {
     val preferences = getSharedPreferences(UserCredentialsPreferences, Context.MODE_PRIVATE)
-    val userId = preferences.getString("userId", "") ?: ""
-    return userId
+    return preferences.getString("userId", "") ?: ""
+}
+
+fun Activity.setUserId(userId: String) {
+    val preferences = getSharedPreferences(UserCredentialsPreferences, Context.MODE_PRIVATE)
+    preferences.edit(commit = true) { putString("userId", userId) }
+}
+
+fun MainActivity.removeMenu() {
+    addMenuProvider(object: MenuProvider {
+        override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+            menu.clear()
+        }
+
+        override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+            return false
+        }
+    })
+}
+
+fun MainActivity.addMenu(auth: FirebaseAuth?) {
+    addMenuProvider(object: MenuProvider {
+        override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+            menuInflater.inflate(R.menu.menu_main, menu)
+        }
+
+        override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+            return when(menuItem.itemId) {
+                R.id.action_logout ->  {
+                    auth?.signOut()
+                    findNavController(R.id.action_global_FragmentLogin)
+                    true
+                }
+                else -> false
+            }
+        }
+    })
 }

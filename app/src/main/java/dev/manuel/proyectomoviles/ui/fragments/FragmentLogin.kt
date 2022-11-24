@@ -9,12 +9,10 @@ import android.view.ViewGroup
 import androidx.core.content.edit
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import dev.manuel.proyectomoviles.R
-import dev.manuel.proyectomoviles.UserCredentialsPreferences
+import dev.manuel.proyectomoviles.*
 import dev.manuel.proyectomoviles.dataClass.Usuario
 import dev.manuel.proyectomoviles.databinding.FragmentLoginBinding
 import dev.manuel.proyectomoviles.db.AppDatabase
-import dev.manuel.proyectomoviles.getUserId
 
 
 class FragmentLogin : Fragment() {
@@ -29,10 +27,16 @@ class FragmentLogin : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        (requireActivity() as MainActivity).removeMenu()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
 
         val userId = requireActivity().getUserId()
         if(userId != "") {

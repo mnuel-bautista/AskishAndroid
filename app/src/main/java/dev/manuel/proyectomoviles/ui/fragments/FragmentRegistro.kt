@@ -5,27 +5,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.button.MaterialButton
+import dev.manuel.proyectomoviles.MainActivity
 import dev.manuel.proyectomoviles.R
-import dev.manuel.proyectomoviles.dataClass.Usuario
 import dev.manuel.proyectomoviles.databinding.FragmentRegistroBinding
 import dev.manuel.proyectomoviles.db.AppDatabase
+import dev.manuel.proyectomoviles.removeMenu
+import dev.manuel.proyectomoviles.setUserId
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
 class FragmentRegistro : Fragment() {
-    private lateinit var nombre: EditText
-    private lateinit var username: EditText
-    private lateinit var correo: EditText
-    private lateinit var password: EditText
-   // private lateinit var auth:FirebaseAuth
 
-    private lateinit var btnConfirmar: MaterialButton
-    private lateinit var btnVolver: MaterialButton
     private val firestore = AppDatabase.getDatabase()?.firestore
     private val auth = AppDatabase.getDatabase()?.auth
 
@@ -36,6 +29,11 @@ class FragmentRegistro : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        (requireActivity() as MainActivity).removeMenu()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,26 +49,34 @@ class FragmentRegistro : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        nombre = view.findViewById(R.id.txtNombre)
-        username = view.findViewById(R.id.txtUsername)
-        password = view.findViewById(R.id.txtPass)
+        val name = binding.txtNombre.editText?.editableText
+        val username = binding.txtUsername.editText?.editableText
+        val password = binding.txtPass.editText?.editableText
+        val email = binding.emailEditText.editText?.editableText
 
-        btnConfirmar = view.findViewById(R.id.btnConfirmar)
-        btnVolver = view.findViewById(R.id.btnVolver)
+        val btnConfirmar = binding.btnConfirmar
+        val btnVolver = binding.btnVolver
 
-        val usuario = Usuario(correo.toString(), nombre.toString(), username.toString())
+        btnVolver.setOnClickListener {
+            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+        }
 
         btnConfirmar.setOnClickListener {
-            if (correo.toString().isNotEmpty() &&
+            if (email.toString().isNotEmpty() &&
                 password.toString().isNotEmpty()
             ) {
 
                 auth?.createUserWithEmailAndPassword(
-                    correo.toString(), password.toString()
+                    email.toString(), password.toString()
                 )?.addOnCompleteListener {
                     if (it.isSuccessful) {
-                        firestore?.collection("usuarios")?.document(it.result.user!!.uid)?.set(usuario) //UID
-                        findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+                        val userId = it.result.user!!.uid
+                        firestore?.collection("users")?.document(it.result.user!!.uid)
+                            ?.set(mapOf("name" to name.toString(), "username" to username.toString(), "email" to email.toString()))
+                            ?.addOnSuccessListener {
+                                (requireActivity() as MainActivity).setUserId(userId)
+                                findNavController().navigate(R.id.action_FragmentRegistro_to_fragmentGrupos)
+                            }
                     } else {
                         showAlert()
                     }

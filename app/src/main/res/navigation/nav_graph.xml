@@ -30,6 +30,9 @@
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FragmentLogin" />
+        <action
+            android:id="@+id/action_FragmentRegistro_to_fragmentGrupos"
+            app:destination="@id/fragmentGrupos" />
     </fragment>
     <fragment
         android:id="@+id/fragmentGrupos"
