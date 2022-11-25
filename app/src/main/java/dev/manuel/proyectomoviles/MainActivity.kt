@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.core.view.MenuProvider
 import androidx.navigation.ui.setupWithNavController
 import dev.manuel.proyectomoviles.databinding.ActivityMainBinding
+import dev.manuel.proyectomoviles.ui.fragments.FragmentGruposDialog
 
 class MainActivity : AppCompatActivity() {
 
@@ -40,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
-        val topDestinations = setOf(R.id.fragmentCuestionarios, R.id.fragmentSalas, R.id.fragmentGrupos, R.id.FragmentLogin, R.id.FragmentRegistro)
+        val topDestinations = setOf(R.id.fragmentCuestionarios, R.id.fragmentSalas, R.id.fragmentGrupos, R.id.FragmentLogin, R.id.FragmentRegistro, R.id.fragmentGruposDialog)
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(topLevelDestinationIds = topDestinations)
@@ -58,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.fragmentGrupos -> {
                     binding.fab.setOnClickListener {
-                        Toast.makeText(this, "Listener del botón fab", Toast.LENGTH_SHORT).show()
+                        findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.fragmentGruposDialog)
                     }
                 }
                 else -> {

@@ -16,7 +16,6 @@ class GrupoAdapter: RecyclerView.Adapter<GrupoAdapter.NombreViewHolder>() {
     }
 
     fun setListNames(list: ArrayList<String>){
-        println("Array adaptador $list")
         listNombres = list
     }
 

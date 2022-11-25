@@ -4,9 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="15dp"
-    android:background="@drawable/esquina_redondeada"
-    android:backgroundTint="#C8C8C8">
+    app:cardCornerRadius="-25dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -28,17 +26,16 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tiEntrada"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="Código"
-            android:inputType="text"
-            app:layout_constraintBottom_toTopOf="@+id/btnGuardar"
+            app:layout_constraintBottom_toTopOf="@+id/btnUnirse"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTexto" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnGuardar"
+            android:id="@+id/btnUnirse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -50,7 +47,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tiEntrada" />
 
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnCancelar"
             android:layout_width="wrap_content"
@@ -61,7 +57,7 @@
             android:textSize="17sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnGuardar"
+            app:layout_constraintEnd_toStartOf="@+id/btnUnirse"
             app:layout_constraintTop_toBottomOf="@+id/tiEntrada" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

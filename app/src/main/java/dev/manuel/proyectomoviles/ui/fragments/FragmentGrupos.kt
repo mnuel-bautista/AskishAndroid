@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import dev.manuel.proyectomoviles.R
 import dev.manuel.proyectomoviles.adapters.GrupoAdapter
 import dev.manuel.proyectomoviles.databinding.FragmentGruposBinding
@@ -22,7 +20,7 @@ class FragmentGrupos : Fragment() {
 
     private lateinit var binding: FragmentGruposBinding
 
-    val idUsuario = "hcBYmE4It2lsjb1KYD9J"
+    private val idUsuario = "hcBYmE4It2lsjb1KYD9J"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,17 +44,11 @@ class FragmentGrupos : Fragment() {
 
     private fun leerGrupos() {
         //Mostrar los grupos a los que pertenece el usuario
-//        db.collection("groups").whereEqualTo("code", "1122")
-//            .get()
-//            .addOnSuccessListener {
-//                it.documents.first().reference.update(mapOf("members.asdfasdfasd" to true))
-//            }
-
         val nombre = ArrayList<String>()
 
         firestore?.collection("groups")
             ?.whereEqualTo("members.$idUsuario", true)
-            ?.addSnapshotListener{ value, e ->
+            ?.addSnapshotListener{ value, _ ->
                 for (doc in value!!){
                     doc.getString("group")?.let {
                         nombre.add(it)
@@ -65,7 +57,6 @@ class FragmentGrupos : Fragment() {
                 if (nombre.isNotEmpty()){
                     (recycleView.adapter as GrupoAdapter).setListNames(nombre)
                 }
-                println("Array $nombre")
         }
     }
 }
