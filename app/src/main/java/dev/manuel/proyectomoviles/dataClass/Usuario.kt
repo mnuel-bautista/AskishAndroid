@@ -4,8 +4,8 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class Usuario(
-    var correo:String?,
-    var nombre:String?,
+    var email:String?,
+    var name:String?,
     var username:String?) : Parcelable{
     constructor(parcel: Parcel) : this(
         parcel.readString(),
@@ -15,8 +15,8 @@ data class Usuario(
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(correo)
-        parcel.writeString(nombre)
+        parcel.writeString(email)
+        parcel.writeString(name)
         parcel.writeString(username)
     }
 

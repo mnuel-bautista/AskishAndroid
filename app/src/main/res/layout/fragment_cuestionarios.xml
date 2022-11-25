@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.FragmentCuestionarios">
+    tools:context=".ui.fragments.FragmentCuestionarios"
+    android:id="@+id/layoutCuestionarios">
 
-    <ListView
-        android:id="@+id/listaCuesti"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        <ListView
+            android:id="@+id/listaCuesti"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
 </FrameLayout>

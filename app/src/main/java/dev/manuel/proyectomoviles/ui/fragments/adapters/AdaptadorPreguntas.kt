@@ -12,10 +12,10 @@ import io.grpc.Context
 class AdaptadorPreguntas : RecyclerView.Adapter<AdaptadorPreguntas.ViewHolder>(){
 
     var pregunta : MutableList<PreguntasModel> = ArrayList()
-    lateinit var context: Context
+    lateinit var context : android.content.Context
 
     //Constructor
-    fun AdaptadorPreguntas(pregunta : MutableList<PreguntasModel>, context:Context){
+    fun AdaptadorPreguntas(pregunta: MutableList<PreguntasModel>, context: android.content.Context){
         this.pregunta = pregunta
         this.context = context
     }

@@ -12,9 +12,11 @@
 
     <Button
         android:id="@+id/opcion_a"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="80dp"
+        android:minHeight="64dp"
         android:text="Opción A"
         app:layout_constraintEnd_toEndOf="@+id/view"
         app:layout_constraintHorizontal_bias="1.0"
@@ -23,9 +25,11 @@
 
     <Button
         android:id="@+id/opcion_b"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="64dp"
         android:layout_marginTop="32dp"
+        android:minHeight="64dp"
         android:text="Opción B"
         app:layout_constraintEnd_toEndOf="@+id/opcion_a"
         app:layout_constraintStart_toStartOf="@+id/opcion_a"
@@ -33,9 +37,11 @@
 
     <Button
         android:id="@+id/opcion_c"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="64dp"
         android:layout_marginTop="32dp"
+        android:minHeight="64dp"
         android:text="Opción C"
         app:layout_constraintEnd_toEndOf="@+id/opcion_b"
         app:layout_constraintStart_toStartOf="@+id/opcion_b"
@@ -43,9 +49,11 @@
 
     <Button
         android:id="@+id/opcion_d"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="64dp"
         android:layout_marginTop="32dp"
+        android:minHeight="64dp"
         android:text="Opción D"
         app:layout_constraintEnd_toEndOf="@+id/opcion_c"
         app:layout_constraintStart_toStartOf="@+id/opcion_c"
@@ -80,14 +88,15 @@
 
     <TextView
         android:id="@+id/esperando_resto"
+        style="@style/TextAppearance.Material3.TitleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:text="Esperando a los demás"
         android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/view"
-        app:layout_constraintStart_toStartOf="@+id/view"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/respuesta_correcta"

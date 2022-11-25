@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     android:label=" "
-    app:startDestination="@id/fragmentGrupos">
+    app:startDestination="@id/FragmentLogin">
 
     <fragment
         android:id="@+id/FragmentLogin"
@@ -16,8 +16,10 @@
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/FragmentRegistro" />
         <action
-            android:id="@+id/action_FirstFragment_to_fragmentGrupos"
-            app:destination="@id/fragmentGrupos" />
+            android:id="@+id/action_FragmentLogin_to_fragmentGrupos"
+            app:destination="@id/fragmentGrupos"
+            app:popUpTo="@id/FragmentLogin"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/FragmentRegistro"
@@ -28,25 +30,24 @@
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FragmentLogin" />
+        <action
+            android:id="@+id/action_FragmentRegistro_to_fragmentGrupos"
+            app:destination="@id/fragmentGrupos" />
     </fragment>
-
     <fragment
         android:id="@+id/fragmentGrupos"
         android:name="dev.manuel.proyectomoviles.ui.fragments.FragmentGrupos"
         android:label="Grupos"
-        tools:layout="@layout/fragment_grupos" >
-        <action
-            android:id="@+id/action_fragmentGrupos_to_fragmentGruposDialog"
-            app:destination="@id/fragmentGruposDialog"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out" />
-    </fragment>
-
+        tools:layout="@layout/fragment_grupos" />
     <fragment
         android:id="@+id/fragmentCuestionarios"
         android:name="dev.manuel.proyectomoviles.ui.fragments.FragmentCuestionarios"
         android:label="Cuestionarios"
-        tools:layout="@layout/fragment_cuestionarios" />
+        tools:layout="@layout/fragment_cuestionarios" >
+        <action
+            android:id="@+id/action_fragmentCuestionarios_to_fragmentCuestionario"
+            app:destination="@id/fragmentCuestionario" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentCuestionario"
         android:name="dev.manuel.proyectomoviles.ui.fragments.FragmentCuestionario"
@@ -91,9 +92,9 @@
             android:id="@+id/action_fragmentSalas_to_fragmentSalaEspera"
             app:destination="@id/fragmentSalaEspera" />
     </fragment>
-    <dialog
-        android:id="@+id/fragmentGruposDialog"
-        android:name="dev.manuel.proyectomoviles.ui.fragments.FragmentGruposDialog"
-        android:label="FragmentGruposDialog" />
-
+    <action
+        android:id="@+id/action_global_FragmentLogin"
+        app:destination="@id/FragmentLogin"
+        app:popUpTo="@id/nav_graph"
+        app:popUpToInclusive="true" />
 </navigation>

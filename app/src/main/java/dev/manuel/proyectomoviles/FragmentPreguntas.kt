@@ -114,6 +114,16 @@ class FragmentPreguntas : Fragment() {
                 lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                     binding.root.transitionToState(R.id.action_buttons_end)
                     quizRoomRepository.addAnswer(currentQuestion.questionId, currentQuestion.question, userId, salaId, answer)
+                    quizRoomRepository.addAnswerToUserCollection(
+                        userId = userId,
+                        quizId = quizRoomRepository.quizId.value,
+                        quizName = quizRoomRepository.quizName.value,
+                        answer = answer,
+                        questionId = currentQuestion.questionId,
+                        questionName = currentQuestion.question,
+                        correctAnswer = currentQuestion.correctAnswer,
+                        supportingText = currentQuestion.description
+                    )
                 }
             }
         }
