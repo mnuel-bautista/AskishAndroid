@@ -3,6 +3,7 @@ package dev.manuel.proyectomoviles
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.navigation.findNavController
@@ -20,6 +21,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.firebase.auth.FirebaseAuth
 import dev.manuel.proyectomoviles.databinding.ActivityMainBinding
 import dev.manuel.proyectomoviles.db.AppDatabase
+import dev.manuel.proyectomoviles.ui.fragments.FragmentGruposDialog
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,6 +38,15 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menu.clear()
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return false
+            }
+        })
 
         setSupportActionBar(binding.toolbar)
 
@@ -44,13 +55,20 @@ class MainActivity : AppCompatActivity() {
             R.id.fragmentSalas,
             R.id.fragmentGrupos,
             R.id.FragmentLogin,
-            R.id.FragmentRegistro
+            R.id.FragmentRegistro,
+            R.id.fragmentGruposDialog
         )
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(topLevelDestinationIds = topDestinations)
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.bottomNavigation.setupWithNavController(navController)
+
+        binding.fab.setOnClickListener { view ->
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAnchorView(R.id.fab)
+                .setAction("Action", null).show()
+        }
 
         findNavController(R.id.nav_host_fragment_content_main)
             .addOnDestinationChangedListener { _, destination, _ ->
@@ -69,7 +87,7 @@ class MainActivity : AppCompatActivity() {
                         binding.fab.visibility = View.VISIBLE
                         binding.bottomNavigation.visibility = View.VISIBLE
                         binding.fab.setOnClickListener {
-
+                            findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.fragmentGruposDialog)
                         }
                     }
                     else -> {
@@ -84,7 +102,7 @@ class MainActivity : AppCompatActivity() {
 
     fun addOrRemoveMenu() {
         findNavController(R.id.nav_host_fragment_content_main).addOnDestinationChangedListener { _, destination, _ ->
-            when(destination.id) {
+            when (destination.id) {
                 R.id.fragmentGrupos, R.id.fragmentCuestionarios, R.id.fragmentSalas -> {
                     addMenu(auth)
                 }
@@ -92,6 +110,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -142,7 +161,7 @@ fun Activity.setUserId(userId: String) {
 }
 
 fun MainActivity.removeMenu() {
-    addMenuProvider(object: MenuProvider {
+    addMenuProvider(object : MenuProvider {
         override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
             menu.clear()
         }
@@ -154,14 +173,14 @@ fun MainActivity.removeMenu() {
 }
 
 fun MainActivity.addMenu(auth: FirebaseAuth?) {
-    addMenuProvider(object: MenuProvider {
+    addMenuProvider(object : MenuProvider {
         override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
             menuInflater.inflate(R.menu.menu_main, menu)
         }
 
         override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-            return when(menuItem.itemId) {
-                R.id.action_logout ->  {
+            return when (menuItem.itemId) {
+                R.id.action_logout -> {
                     auth?.signOut()
                     findNavController(R.id.action_global_FragmentLogin)
                     true

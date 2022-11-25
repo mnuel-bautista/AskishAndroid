@@ -7,24 +7,24 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import dev.manuel.proyectomoviles.R
 import dev.manuel.proyectomoviles.adapters.GrupoAdapter
 import dev.manuel.proyectomoviles.databinding.FragmentGruposBinding
+import dev.manuel.proyectomoviles.db.AppDatabase
 
 
 class FragmentGrupos : Fragment() {
 
     private lateinit var recycleView: RecyclerView
-    private val db = Firebase.firestore
-    private val nombre = ArrayList<String>()
+    private val firestore = AppDatabase.getDatabase()?.firestore
 
     private lateinit var binding: FragmentGruposBinding
 
+    private val idUsuario = "hcBYmE4It2lsjb1KYD9J"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        leerGrupos()
     }
 
     override fun onCreateView(
@@ -33,39 +33,30 @@ class FragmentGrupos : Fragment() {
         return inflater.inflate(R.layout.fragment_grupos, container, false)
     }
 
-    //CODIGO AGREGADO
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentGruposBinding.bind(view)
 
-        //Referenciar al layout del recycleview
         recycleView = binding.recycleView
         recycleView.layoutManager = LinearLayoutManager(requireContext())
         recycleView.adapter = GrupoAdapter()
-
-        leer()
     }
 
-    private fun leer() {
-
+    private fun leerGrupos() {
         //Mostrar los grupos a los que pertenece el usuario
-//        db.collection("grupos").whereEqualTo("codigo", "1122")
-//            .get()
-//            .addOnSuccessListener {
-//                it.documents.first().reference.update(mapOf("integrantes.asdfasdfasd" to true))
-//            }
+        val nombre = ArrayList<String>()
 
-//        db.collection("grupos").whereEqualTo("integrantes.aSDFASDFasdfasd", true).addSnapshotListener{ value, e ->
-//            for (doc in value!!){
-//                doc.getString("nombre")?.let {
-//                    nombre.add(it)
-//                }
-//            }
-//            if (nombre.isNotEmpty()){
-//                (recycleView.adapter as GrupoAdapter).setListNames(nombre)
-//            }
-//            println("Array $nombre")
-//        }
+        firestore?.collection("groups")
+            ?.whereEqualTo("members.$idUsuario", true)
+            ?.addSnapshotListener{ value, _ ->
+                for (doc in value!!){
+                    doc.getString("group")?.let {
+                        nombre.add(it)
+                    }
+                }
+                if (nombre.isNotEmpty()){
+                    (recycleView.adapter as GrupoAdapter).setListNames(nombre)
+                }
+        }
     }
-
 }

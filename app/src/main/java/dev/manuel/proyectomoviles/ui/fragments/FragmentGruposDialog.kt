@@ -1,60 +1,72 @@
 package dev.manuel.proyectomoviles.ui.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.text.InputFilter
+import android.text.InputFilter.AllCaps
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.fragment.app.DialogFragment
+import com.google.android.material.textfield.TextInputEditText
 import dev.manuel.proyectomoviles.R
+import dev.manuel.proyectomoviles.databinding.FragmentGruposDialogBinding
+import dev.manuel.proyectomoviles.db.AppDatabase
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [FragmentGruposDialog.newInstance] factory method to
- * create an instance of this fragment.
- */
-class FragmentGruposDialog : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class FragmentGruposDialog : DialogFragment() {
+
+    private lateinit var binding: FragmentGruposDialogBinding
+    private val firestore = AppDatabase.getDatabase()?.firestore
+
+    private lateinit var entrada: TextInputEditText
+    private lateinit var unirse: Button
+    private lateinit var cancelar: Button
+
+    //Modificar para hacerlo dinamico, solo de prueba - 18VC
+    private val idUsuario = "hcBYmE4It2lsjb1KYD9J"
+    private lateinit var code: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_grupos_dialog, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FragmentGruposDialog.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FragmentGruposDialog().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentGruposDialogBinding.bind(view)
+
+        entrada = binding.tiEntrada
+        unirse = binding.btnUnirse
+        cancelar = binding.btnCancelar
+
+        entrada.filters = arrayOf<InputFilter>(AllCaps())
+
+        unirse.setOnClickListener {
+            code = entrada.text.toString()
+            registrarUsuario()
+        }
+
+        cancelar.setOnClickListener {
+            dismiss()
+        }
+    }
+
+    private fun registrarUsuario(){
+        firestore?.collection("groups")
+            ?.whereEqualTo("code", code)
+            ?.get()
+            ?.addOnSuccessListener {
+                it.documents.first().reference.update(mapOf("members.$idUsuario" to true))
+                dismiss()
+            }?.addOnFailureListener {
+
             }
     }
 }

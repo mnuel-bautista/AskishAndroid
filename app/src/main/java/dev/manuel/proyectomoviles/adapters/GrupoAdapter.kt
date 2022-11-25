@@ -9,16 +9,15 @@ import dev.manuel.proyectomoviles.R
 
 class GrupoAdapter: RecyclerView.Adapter<GrupoAdapter.NombreViewHolder>() {
 
+    private var listNombres = ArrayList<String>()
+
     class NombreViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val vistaNombre: TextView = itemView.findViewById(R.id.tvNombre)
     }
 
     fun setListNames(list: ArrayList<String>){
-        println("Array adaptador $list")
         listNombres = list
     }
-
-    private var listNombres = ArrayList<String>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NombreViewHolder {
         return NombreViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false))
@@ -29,7 +28,6 @@ class GrupoAdapter: RecyclerView.Adapter<GrupoAdapter.NombreViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        println("Tamaño del array en adaptador: ${listNombres.size}")
         return listNombres.size
     }
 }

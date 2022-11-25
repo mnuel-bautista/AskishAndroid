@@ -34,11 +34,19 @@
             android:id="@+id/action_FragmentRegistro_to_fragmentGrupos"
             app:destination="@id/fragmentGrupos" />
     </fragment>
+
     <fragment
         android:id="@+id/fragmentGrupos"
         android:name="dev.manuel.proyectomoviles.ui.fragments.FragmentGrupos"
         android:label="Grupos"
-        tools:layout="@layout/fragment_grupos" />
+        tools:layout="@layout/fragment_grupos" >
+        <action
+            android:id="@+id/action_fragmentGrupos_to_fragmentGruposDialog"
+            app:destination="@id/fragmentGruposDialog"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
+    </fragment>
+
     <fragment
         android:id="@+id/fragmentCuestionarios"
         android:name="dev.manuel.proyectomoviles.ui.fragments.FragmentCuestionarios"
@@ -97,4 +105,9 @@
         app:destination="@id/FragmentLogin"
         app:popUpTo="@id/nav_graph"
         app:popUpToInclusive="true" />
+    <dialog
+        android:id="@+id/fragmentGruposDialog"
+        android:name="dev.manuel.proyectomoviles.ui.fragments.FragmentGruposDialog"
+        android:label="FragmentGruposDialog" />
+
 </navigation>
