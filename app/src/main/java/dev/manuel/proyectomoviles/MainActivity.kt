@@ -102,6 +102,7 @@ class MainActivity : AppCompatActivity() {
 
     fun addOrRemoveMenu() {
         findNavController(R.id.nav_host_fragment_content_main).addOnDestinationChangedListener { _, destination, _ ->
+            removeMenu()
             when (destination.id) {
                 R.id.fragmentGrupos, R.id.fragmentCuestionarios, R.id.fragmentSalas -> {
                     addMenu(auth)
