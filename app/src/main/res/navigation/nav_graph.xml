@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     android:label=" "
-    app:startDestination="@id/FragmentLogin">
+    app:startDestination="@id/fragmentGrupos">
 
     <fragment
         android:id="@+id/FragmentLogin"
@@ -34,11 +34,19 @@
             android:id="@+id/action_FragmentRegistro_to_fragmentGrupos"
             app:destination="@id/fragmentGrupos" />
     </fragment>
+
     <fragment
         android:id="@+id/fragmentGrupos"
         android:name="dev.manuel.proyectomoviles.ui.fragments.FragmentGrupos"
         android:label="Grupos"
-        tools:layout="@layout/fragment_grupos" />
+        tools:layout="@layout/fragment_grupos" >
+        <action
+            android:id="@+id/action_fragmentGrupos_to_fragmentGruposDialog"
+            app:destination="@id/fragmentGruposDialog"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
+    </fragment>
+
     <fragment
         android:id="@+id/fragmentCuestionarios"
         android:name="dev.manuel.proyectomoviles.ui.fragments.FragmentCuestionarios"
@@ -92,9 +100,17 @@
             android:id="@+id/action_fragmentSalas_to_fragmentSalaEspera"
             app:destination="@id/fragmentSalaEspera" />
     </fragment>
+<<<<<<<<< Temporary merge branch 1
     <action
         android:id="@+id/action_global_FragmentLogin"
         app:destination="@id/FragmentLogin"
         app:popUpTo="@id/nav_graph"
         app:popUpToInclusive="true" />
+=========
+    <dialog
+        android:id="@+id/fragmentGruposDialog"
+        android:name="dev.manuel.proyectomoviles.ui.fragments.FragmentGruposDialog"
+        android:label="FragmentGruposDialog" />
+
+>>>>>>>>> Temporary merge branch 2
 </navigation>

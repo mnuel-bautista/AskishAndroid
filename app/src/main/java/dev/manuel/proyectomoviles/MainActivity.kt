@@ -13,13 +13,21 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+<<<<<<<<< Temporary merge branch 1
 import androidx.core.content.edit
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+=========
+import android.widget.Toast
+>>>>>>>>> Temporary merge branch 2
 import androidx.core.view.MenuProvider
 import androidx.navigation.ui.setupWithNavController
 import com.google.firebase.auth.FirebaseAuth
 import dev.manuel.proyectomoviles.databinding.ActivityMainBinding
+<<<<<<<<< Temporary merge branch 1
 import dev.manuel.proyectomoviles.db.AppDatabase
+=========
+import dev.manuel.proyectomoviles.ui.fragments.FragmentGruposDialog
+>>>>>>>>> Temporary merge branch 2
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,6 +47,7 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
+<<<<<<<<< Temporary merge branch 1
         val topDestinations = setOf(
             R.id.fragmentCuestionarios,
             R.id.fragmentSalas,
@@ -46,6 +55,9 @@ class MainActivity : AppCompatActivity() {
             R.id.FragmentLogin,
             R.id.FragmentRegistro
         )
+=========
+        val topDestinations = setOf(R.id.fragmentCuestionarios, R.id.fragmentSalas, R.id.fragmentGrupos, R.id.FragmentLogin, R.id.FragmentRegistro, R.id.fragmentGruposDialog)
+>>>>>>>>> Temporary merge branch 2
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(topLevelDestinationIds = topDestinations)
@@ -54,6 +66,7 @@ class MainActivity : AppCompatActivity() {
 
         findNavController(R.id.nav_host_fragment_content_main)
             .addOnDestinationChangedListener { _, destination, _ ->
+<<<<<<<<< Temporary merge branch 1
                 binding.fab.setOnClickListener { }
                 when (destination.id) {
                     R.id.fragmentPreguntas, R.id.fragmentCuestionarioCompletado,
@@ -75,6 +88,18 @@ class MainActivity : AppCompatActivity() {
                     else -> {
                         binding.fab.visibility = View.VISIBLE
                         binding.bottomNavigation.visibility = View.VISIBLE
+=========
+                binding.fab.setOnClickListener {  }
+            when(destination.id) {
+                R.id.fragmentPreguntas, R.id.fragmentCuestionarioCompletado,
+                R.id.fragmentSalaEspera, R.id.FragmentLogin, R.id.FragmentRegistro -> {
+                    binding.fab.visibility = View.INVISIBLE
+                    binding.bottomNavigation.visibility = View.INVISIBLE
+                }
+                R.id.fragmentGrupos -> {
+                    binding.fab.setOnClickListener {
+                        findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.fragmentGruposDialog)
+>>>>>>>>> Temporary merge branch 2
                     }
                 }
             }
