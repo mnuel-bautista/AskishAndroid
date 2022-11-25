@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dev.manuel.proyectomoviles.R
 import dev.manuel.proyectomoviles.adapters.GrupoAdapter
 import dev.manuel.proyectomoviles.databinding.FragmentGruposBinding
 import dev.manuel.proyectomoviles.db.AppDatabase
+import dev.manuel.proyectomoviles.getUserId
 
 
 class FragmentGrupos : Fragment() {
@@ -26,9 +28,14 @@ class FragmentGrupos : Fragment() {
         super.onCreate(savedInstanceState)
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
+        val userId = requireActivity().getUserId()
+        if(userId == "") {
+            findNavController().navigate(R.id.action_fragmentGrupos_to_FragmentLogin)
+        }
         return inflater.inflate(R.layout.fragment_grupos, container, false)
     }
 
