@@ -24,7 +24,6 @@ class FragmentGrupos : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        leerGrupos()
     }
 
     override fun onCreateView(
@@ -40,6 +39,8 @@ class FragmentGrupos : Fragment() {
         recycleView = binding.recycleView
         recycleView.layoutManager = LinearLayoutManager(requireContext())
         recycleView.adapter = GrupoAdapter()
+
+        leerGrupos()
     }
 
     private fun leerGrupos() {

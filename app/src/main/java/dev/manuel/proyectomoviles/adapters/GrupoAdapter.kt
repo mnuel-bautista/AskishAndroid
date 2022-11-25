@@ -17,6 +17,7 @@ class GrupoAdapter: RecyclerView.Adapter<GrupoAdapter.NombreViewHolder>() {
 
     fun setListNames(list: ArrayList<String>){
         listNombres = list
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NombreViewHolder {
