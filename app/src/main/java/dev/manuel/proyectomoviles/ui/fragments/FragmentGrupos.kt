@@ -20,6 +20,8 @@ class FragmentGrupos : Fragment() {
 
     private lateinit var binding: FragmentGruposBinding
 
+    private val groups = ArrayList<String>()
+
     private val idUsuario = "hcBYmE4It2lsjb1KYD9J"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,19 +46,17 @@ class FragmentGrupos : Fragment() {
 
     private fun leerGrupos() {
         //Mostrar los grupos a los que pertenece el usuario
-        val nombre = ArrayList<String>()
-
         firestore?.collection("groups")
             ?.whereEqualTo("members.$idUsuario", true)
-            ?.addSnapshotListener{ value, _ ->
-                for (doc in value!!){
+            ?.addSnapshotListener { value, _ ->
+                for (doc in value!!) {
                     doc.getString("group")?.let {
-                        nombre.add(it)
+                        groups.add(it)
                     }
                 }
-                if (nombre.isNotEmpty()){
-                    (recycleView.adapter as GrupoAdapter).setListNames(nombre)
+                if (groups.isNotEmpty()) {
+                    (recycleView.adapter as GrupoAdapter).setListNames(groups)
                 }
-        }
+            }
     }
 }
