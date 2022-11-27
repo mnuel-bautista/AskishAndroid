@@ -19,7 +19,6 @@ class CardSalaAdapter(val onCardClick: (Sala) -> Unit = {}) :
     class SalaViewHolder(itemView: View) : ViewHolder(itemView) {
         val cuestionario: TextView = itemView.findViewById(R.id.card_sala_cuestionario)
         val grupo: TextView = itemView.findViewById(R.id.card_sala_grupo)
-        val participantes: TextView = itemView.findViewById(R.id.card_sala_participantes)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SalaViewHolder {
@@ -30,7 +29,6 @@ class CardSalaAdapter(val onCardClick: (Sala) -> Unit = {}) :
     override fun onBindViewHolder(holder: SalaViewHolder, position: Int) {
         holder.cuestionario.text = getItem(position).cuestionario
         holder.grupo.text = getItem(position).grupo
-        holder.participantes.text = getItem(position).participantes.toString()
         holder.itemView.setOnClickListener { onCardClick(getItem(position)) }
     }
 

@@ -12,8 +12,6 @@
         android:padding="12dp"
         android:layout_marginBottom="10dp"
         android:text="Nombre de la materia"
-        android:background="@drawable/esquina_redondeada"
-        android:textColor="@color/black"
         android:textSize="28sp"/>
 
 </LinearLayout>

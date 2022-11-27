@@ -37,12 +37,6 @@ class FragmentLogin : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-
-        val userId = requireActivity().getUserId()
-        if(userId != "") {
-            findNavController().navigate(R.id.action_FragmentLogin_to_fragmentGrupos)
-        }
-
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
 

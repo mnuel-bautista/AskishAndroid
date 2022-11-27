@@ -7,29 +7,28 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import dev.manuel.proyectomoviles.R
 
-class GrupoAdapter: RecyclerView.Adapter<GrupoAdapter.NombreViewHolder>() {
+class GrupoAdapter : RecyclerView.Adapter<GrupoAdapter.NombreViewHolder>() {
 
-    class NombreViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    private var listNombres = listOf<String>()
+
+    class NombreViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val vistaNombre: TextView = itemView.findViewById(R.id.tvNombre)
     }
 
-    fun setListNames(list: ArrayList<String>){
-        println("Array adaptador $list")
+    fun setListNames(list: List<String>) {
         listNombres = list
+        notifyDataSetChanged()
     }
 
-    private var listNombres = ArrayList<String>()
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NombreViewHolder {
-        return NombreViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false))
+        return NombreViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: NombreViewHolder, position: Int) {
         holder.vistaNombre.text = listNombres[position]
     }
 
-    override fun getItemCount(): Int {
-        println("Tamaño del array en adaptador: ${listNombres.size}")
-        return listNombres.size
-    }
+    override fun getItemCount(): Int = listNombres.size
 }
