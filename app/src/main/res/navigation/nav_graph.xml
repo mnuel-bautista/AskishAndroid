@@ -11,7 +11,6 @@
         android:name="dev.manuel.proyectomoviles.ui.fragments.FragmentLogin"
         android:label=" "
         tools:layout="@layout/fragment_login">
-
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/FragmentRegistro" />
@@ -27,7 +26,6 @@
         android:name="dev.manuel.proyectomoviles.ui.fragments.FragmentRegistro"
         android:label=" "
         tools:layout="@layout/fragment_registro">
-
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FragmentLogin" />
@@ -40,7 +38,7 @@
         android:id="@+id/fragmentGrupos"
         android:name="dev.manuel.proyectomoviles.ui.fragments.FragmentGrupos"
         android:label="Grupos"
-        tools:layout="@layout/fragment_grupos" >
+        tools:layout="@layout/fragment_grupos">
         <action
             android:id="@+id/action_fragmentGrupos_to_fragmentGruposDialog"
             app:destination="@id/fragmentGruposDialog"
@@ -55,7 +53,7 @@
         android:id="@+id/fragmentCuestionarios"
         android:name="dev.manuel.proyectomoviles.ui.fragments.FragmentCuestionarios"
         android:label="Cuestionarios"
-        tools:layout="@layout/fragment_cuestionarios" >
+        tools:layout="@layout/fragment_cuestionarios">
         <action
             android:id="@+id/action_fragmentCuestionarios_to_fragmentCuestionario"
             app:destination="@id/fragmentCuestionario" />

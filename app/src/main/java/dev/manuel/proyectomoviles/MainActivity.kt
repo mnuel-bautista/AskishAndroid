@@ -21,15 +21,12 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.firebase.auth.FirebaseAuth
 import dev.manuel.proyectomoviles.databinding.ActivityMainBinding
 import dev.manuel.proyectomoviles.db.AppDatabase
-import dev.manuel.proyectomoviles.ui.fragments.FragmentGruposDialog
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-
     private val auth = AppDatabase.getDatabase()?.auth
-
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
@@ -96,7 +93,6 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
-
         addOrRemoveMenu()
     }
 
@@ -140,12 +136,9 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
     }
-
-
 }
 
 const val UserCredentialsPreferences = "user-credentials"
-
 fun Activity.removeUserId() {
     val preferences = getSharedPreferences(UserCredentialsPreferences, Context.MODE_PRIVATE)
     preferences.edit(commit = true) { remove("userId") }

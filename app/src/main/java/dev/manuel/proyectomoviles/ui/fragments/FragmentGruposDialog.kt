@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.DialogFragment
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import dev.manuel.proyectomoviles.R
 import dev.manuel.proyectomoviles.databinding.FragmentGruposDialogBinding
@@ -24,6 +25,7 @@ class FragmentGruposDialog : DialogFragment() {
     private lateinit var cancelar: Button
 
     //Modificar para hacerlo dinamico, solo de prueba - 18VC
+    //private val idUsuario = (requireActivity() as MainActivity).getUserId()
     private val idUsuario = "hcBYmE4It2lsjb1KYD9J"
     private lateinit var code: String
 
@@ -58,15 +60,31 @@ class FragmentGruposDialog : DialogFragment() {
         }
     }
 
-    private fun registrarUsuario(){
+    private fun registrarUsuario() {
         firestore?.collection("groups")
             ?.whereEqualTo("code", code)
             ?.get()
             ?.addOnSuccessListener {
-                it.documents.first().reference.update(mapOf("members.$idUsuario" to true))
-                dismiss()
-            }?.addOnFailureListener {
-
+                if (it.documents.firstOrNull() != null) {
+                    it.documents.first().reference.update(mapOf("members.$idUsuario" to true))
+                    //Cambiar el requireView()
+                    parentFragment?.let { it1 ->
+                        Snackbar.make(
+                            it1.requireView(),
+                            "¡Bienvenido!",
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                    }
+                    dismiss()
+                } else {
+                    parentFragment?.let { it1 ->
+                        Snackbar.make(
+                            it1.requireView(),
+                            "No se ha encontrado el grupo",
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                    }
+                }
             }
     }
 }
