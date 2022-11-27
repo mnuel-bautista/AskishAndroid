@@ -49,7 +49,8 @@ class FragmentSalas : Fragment() {
 
 
     private fun getRooms(adapter: CardSalaAdapter) {
-        quizRoomRepository.getAllQuizRooms("")
+        val userId = (requireActivity() as MainActivity).getUserId()
+        quizRoomRepository.getAllQuizRooms(userId)
         viewLifecycleOwner.lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 quizRoomRepository.quizRooms.collect {

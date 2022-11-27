@@ -36,17 +36,18 @@ class FragmentSalaEspera : Fragment() {
 
     private fun onUserRetrieved() {
         val salaArg = arguments?.getString("salaId") ?: ""
+        val userId = (requireActivity() as MainActivity).getUserId()
         listenerRegistration = database?.firestore?.document("salas/$salaArg")
             ?.addSnapshotListener { value, _ ->
 
-                if(status == value?.getString("estado_sala")) {
+                if(status == value?.getString("quizRoomStatus")) {
                     return@addSnapshotListener
                 }
 
                 if(value != null) {
-                    if(value.getString("estado_sala") == "In Progress") {
-                        val args = bundleOf("salaId" to value.id, "userId" to "jaYl9hlDSAHCTWzA2ez5YWc1VhrQ")
-                        status = value.getString("estado_sala") ?: ""
+                    if(value.getString("quizRoomStatus") == "In Progress") {
+                        val args = bundleOf("salaId" to value.id, "userId" to userId)
+                        status = value.getString("quizRoomStatus") ?: ""
                         findNavController().navigate(R.id.action_fragmentSalaEspera_to_fragmentPreguntas, args)
                     }
                 }

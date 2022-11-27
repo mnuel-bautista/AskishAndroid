@@ -76,7 +76,7 @@ class QuizzRoomRepository {
     @Suppress("UNCHECKED_CAST")
     fun getAllQuizRooms(userId: String) {
         firestore?.collection("salas")
-            ?.whereEqualTo("guests.jaYl9hlDSAHCTWzA2ez5YWc1VhrQ", true)
+            ?.whereEqualTo("guests.$userId", true)
             ?.whereNotEqualTo("quizzRoomStatus", "Completed")
             ?.addSnapshotListener { value, _ ->
                 val rooms = value?.documents?.map { e ->
