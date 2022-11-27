@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dev.manuel.proyectomoviles.databinding.FragmentSalasBinding
 import dev.manuel.proyectomoviles.repositories.QuizzRoomRepository
 import dev.manuel.proyectomoviles.ui.fragments.adapters.CardSalaAdapter
+import dev.manuel.proyectomoviles.viewmodels.QuizRoomViewModel
 import kotlinx.coroutines.launch
 
 
@@ -21,7 +23,7 @@ class FragmentSalas : Fragment() {
 
     private lateinit var binding: FragmentSalasBinding
 
-    private val quizRoomRepository: QuizzRoomRepository = QuizzRoomRepository()
+    private val viewModel: QuizRoomViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -50,10 +52,10 @@ class FragmentSalas : Fragment() {
 
     private fun getRooms(adapter: CardSalaAdapter) {
         val userId = (requireActivity() as MainActivity).getUserId()
-        quizRoomRepository.getAllQuizRooms(userId)
+        viewModel.repository.getAllQuizRooms(userId)
         viewLifecycleOwner.lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                quizRoomRepository.quizRooms.collect {
+                viewModel.repository.quizRooms.collect {
                     adapter.submitList(it)
                 }
             }
