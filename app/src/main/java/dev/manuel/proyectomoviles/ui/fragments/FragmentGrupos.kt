@@ -1,6 +1,7 @@
 package dev.manuel.proyectomoviles.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,7 +49,6 @@ class FragmentGrupos : Fragment() {
         recycleView = binding.recycleView
         recycleView.layoutManager = LinearLayoutManager(requireContext())
         recycleView.adapter = GrupoAdapter()
-
         leerGrupos()
     }
 
@@ -57,12 +57,8 @@ class FragmentGrupos : Fragment() {
         firestore?.collection("groups")
             ?.whereEqualTo("members.$idUsuario", true)
             ?.addSnapshotListener { value, _ ->
-                for (doc in value!!) {
-                    doc.getString("group")?.let {
-                        groups.add(it)
-                    }
-                }
-                if (groups.isNotEmpty()) {
+                val groups = value?.documents?.map { it.getString("group") ?: "" }
+                if (groups?.isNotEmpty() == true) {
                     (recycleView.adapter as GrupoAdapter).setListNames(groups)
                 }
             }

@@ -9,13 +9,13 @@ import dev.manuel.proyectomoviles.R
 
 class GrupoAdapter : RecyclerView.Adapter<GrupoAdapter.NombreViewHolder>() {
 
-    private var listNombres = ArrayList<String>()
+    private var listNombres = listOf<String>()
 
     class NombreViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val vistaNombre: TextView = itemView.findViewById(R.id.tvNombre)
     }
 
-    fun setListNames(list: ArrayList<String>) {
+    fun setListNames(list: List<String>) {
         listNombres = list
         notifyDataSetChanged()
     }

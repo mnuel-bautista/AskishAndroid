@@ -10,9 +10,11 @@ import android.widget.Button
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
+import dev.manuel.proyectomoviles.MainActivity
 import dev.manuel.proyectomoviles.R
 import dev.manuel.proyectomoviles.databinding.FragmentGruposDialogBinding
 import dev.manuel.proyectomoviles.db.AppDatabase
+import dev.manuel.proyectomoviles.getUserId
 
 
 class FragmentGruposDialog : DialogFragment() {
@@ -25,8 +27,7 @@ class FragmentGruposDialog : DialogFragment() {
     private lateinit var cancelar: Button
 
     //Modificar para hacerlo dinamico, solo de prueba - 18VC
-    //private val idUsuario = (requireActivity() as MainActivity).getUserId()
-    private val idUsuario = "hcBYmE4It2lsjb1KYD9J"
+    private lateinit var idUsuario: String
     private lateinit var code: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,8 +43,9 @@ class FragmentGruposDialog : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentGruposDialogBinding.bind(view)
+        idUsuario = (requireActivity() as MainActivity).getUserId()
 
+        binding = FragmentGruposDialogBinding.bind(view)
         entrada = binding.tiEntrada
         unirse = binding.btnUnirse
         cancelar = binding.btnCancelar
