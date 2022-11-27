@@ -50,8 +50,6 @@ class FragmentGruposDialog : DialogFragment() {
         unirse = binding.btnUnirse
         cancelar = binding.btnCancelar
 
-        entrada.filters = arrayOf<InputFilter>(AllCaps())
-
         unirse.setOnClickListener {
             code = entrada.text.toString()
             registrarUsuario()
