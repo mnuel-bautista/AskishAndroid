@@ -25,7 +25,7 @@ class FragmentGrupos : Fragment() {
 
     private val groups = ArrayList<String>()
 
-    private val idUsuario = "hcBYmE4It2lsjb1KYD9J"
+    private var idUsuario: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +36,7 @@ class FragmentGrupos : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val userId = requireActivity().getUserId()
+        idUsuario = userId
         if(userId == "") {
             findNavController().navigate(R.id.action_fragmentGrupos_to_FragmentLogin)
         }
