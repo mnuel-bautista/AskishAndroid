@@ -18,12 +18,14 @@ import androidx.core.content.edit
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.MenuProvider
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import dev.manuel.proyectomoviles.databinding.ActivityMainBinding
 import dev.manuel.proyectomoviles.db.AppDatabase
 
 class MainActivity : AppCompatActivity() {
 
+    private var isBottomBarVisible: Boolean = true
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private val auth = AppDatabase.getDatabase()?.auth
@@ -46,7 +48,6 @@ class MainActivity : AppCompatActivity() {
         })
 
         setSupportActionBar(binding.toolbar)
-
         val topDestinations = setOf(
             R.id.fragmentCuestionarios,
             R.id.fragmentSalas,
@@ -61,35 +62,29 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.bottomNavigation.setupWithNavController(navController)
 
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAnchorView(R.id.fab)
-                .setAction("Action", null).show()
-        }
-
         findNavController(R.id.nav_host_fragment_content_main)
             .addOnDestinationChangedListener { _, destination, _ ->
                 binding.fab.setOnClickListener { }
                 when (destination.id) {
                     R.id.fragmentPreguntas, R.id.fragmentCuestionarioCompletado,
                     R.id.fragmentSalaEspera, R.id.FragmentLogin, R.id.FragmentRegistro, R.id.fragmentCuestionario -> {
-                        binding.fab.visibility = View.INVISIBLE
-                        binding.bottomNavigation.visibility = View.INVISIBLE
+                        binding.fab.hide()
+                        binding.bottomNavigation.hide()
                     }
                     R.id.fragmentCuestionarios, R.id.fragmentSalas -> {
-                        binding.fab.visibility = View.INVISIBLE
-                        binding.bottomNavigation.visibility = View.VISIBLE
+                        binding.fab.hide()
+                        binding.bottomNavigation.show()
                     }
                     R.id.fragmentGrupos -> {
-                        binding.fab.visibility = View.VISIBLE
-                        binding.bottomNavigation.visibility = View.VISIBLE
+                        binding.fab.show()
+                        binding.bottomNavigation.show()
                         binding.fab.setOnClickListener {
                             findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.fragmentGruposDialog)
                         }
                     }
                     else -> {
-                        binding.fab.visibility = View.VISIBLE
-                        binding.bottomNavigation.visibility = View.VISIBLE
+                        binding.fab.show()
+                        binding.bottomNavigation.show()
                     }
                 }
             }
@@ -183,4 +178,22 @@ fun MainActivity.addMenu(auth: FirebaseAuth?) {
             }
         }
     })
+}
+
+private fun BottomNavigationView.show() {
+    if(visibility != View.VISIBLE) {
+        animate()
+            .translationY(0f)
+            .withEndAction { visibility = View.VISIBLE }
+            .duration = 100
+    }
+}
+
+private fun BottomNavigationView.hide() {
+    if(visibility != View.INVISIBLE) {
+        animate()
+            .translationY(height.toFloat())
+            .withEndAction { visibility = View.INVISIBLE }
+            .duration = 100
+    }
 }

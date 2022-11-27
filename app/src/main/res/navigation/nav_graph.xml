@@ -13,11 +13,19 @@
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/FragmentRegistro" />
+            app:destination="@id/FragmentRegistro"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_FragmentLogin_to_fragmentGrupos"
             app:destination="@id/fragmentGrupos"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
             app:launchSingleTop="true"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/FragmentLogin"
             app:popUpToInclusive="true" />
     </fragment>
@@ -28,10 +36,18 @@
         tools:layout="@layout/fragment_registro">
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FragmentLogin" />
+            app:destination="@id/FragmentLogin"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_FragmentRegistro_to_fragmentGrupos"
-            app:destination="@id/fragmentGrupos" />
+            app:destination="@id/fragmentGrupos"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment
@@ -42,11 +58,17 @@
         <action
             android:id="@+id/action_fragmentGrupos_to_fragmentGruposDialog"
             app:destination="@id/fragmentGruposDialog"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out" />
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_fragmentGrupos_to_FragmentLogin"
-            app:destination="@id/FragmentLogin" />
+            app:destination="@id/FragmentLogin"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment
@@ -71,8 +93,10 @@
         <action
             android:id="@+id/action_fragmentSalaEspera_to_fragmentPreguntas"
             app:destination="@id/fragmentPreguntas"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/fragmentSalas" />
         <argument
             android:name="sala"
@@ -86,6 +110,10 @@
         <action
             android:id="@+id/action_fragmentPreguntas_to_fragmentCuestionarioCompletado"
             app:destination="@id/fragmentCuestionarioCompletado"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/fragmentSalas" />
     </fragment>
     <fragment
@@ -100,7 +128,18 @@
         tools:layout="@layout/fragment_salas">
         <action
             android:id="@+id/action_fragmentSalas_to_fragmentSalaEspera"
-            app:destination="@id/fragmentSalaEspera" />
+            app:destination="@id/fragmentSalaEspera"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_fragmentSalas_to_fragmentCuestionario"
+            app:destination="@id/fragmentCuestionario"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <action
         android:id="@+id/action_global_FragmentLogin"
