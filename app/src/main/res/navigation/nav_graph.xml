@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     android:label=" "
-    app:startDestination="@id/fragmentGrupos">
+    app:startDestination="@id/FragmentLogin">
 
     <fragment
         android:id="@+id/FragmentLogin"
