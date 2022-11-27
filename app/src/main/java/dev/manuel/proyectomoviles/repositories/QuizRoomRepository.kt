@@ -59,7 +59,7 @@ class QuizzRoomRepository {
 
         quizRoomListener = firestore?.document("salas/$quizRoomId")?.addSnapshotListener { value, _ ->
             if (value != null) {
-                val status = getQuizRoomStatus(value.getString("quizzRoomStatus"))
+                val status = getQuizRoomStatus(value.getString("quizRoomStatus"))
                 mQuizRoomStatus.value = status
 
                 val currentQuestion = getCurrentQuestion(value)
