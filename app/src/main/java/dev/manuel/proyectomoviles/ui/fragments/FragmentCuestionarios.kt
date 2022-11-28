@@ -11,11 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentChange
-import com.google.firebase.firestore.FirebaseFirestoreException
-import com.google.firebase.firestore.QuerySnapshot
 import dev.manuel.proyectomoviles.R
 import dev.manuel.proyectomoviles.db.AppDatabase
 import dev.manuel.proyectomoviles.getUserId
@@ -68,17 +64,6 @@ class FragmentCuestionarios : Fragment() {
 
         return root
     }
-
-    fun getAllDocumentsUsuarios() {
-        var id: String
-        firestore?.collection("Quiz")?.get()?.addOnSuccessListener { resultado ->
-            for (documentos in resultado) {
-                id = documentos.id
-                println(documentos.id)
-            }
-        }
-    }
-
 
     private fun EventChangeListener() {
         firestore?.collection("users/${idUsuario}/quizzes")

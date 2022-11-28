@@ -5,6 +5,7 @@ import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -16,14 +17,14 @@ import dev.manuel.proyectomoviles.databinding.FragmentPreguntasBinding
 import dev.manuel.proyectomoviles.models.CurrentQuestion
 import dev.manuel.proyectomoviles.models.CurrentQuestionStatus
 import dev.manuel.proyectomoviles.repositories.QuizRoomStatus
-import dev.manuel.proyectomoviles.repositories.QuizzRoomRepository
+import dev.manuel.proyectomoviles.viewmodels.QuizRoomViewModel
 import kotlinx.coroutines.launch
 
 
 class FragmentPreguntas : Fragment() {
 
 
-    private val quizRoomRepository: QuizzRoomRepository = QuizzRoomRepository()
+    private val viewModel: QuizRoomViewModel by viewModels()
 
     private lateinit var binding: FragmentPreguntasBinding
 
@@ -59,11 +60,11 @@ class FragmentPreguntas : Fragment() {
 
         val salaId = arguments?.getString("salaId") ?: ""
 
-        quizRoomRepository.getQuizRoom(salaId)
+        viewModel.repository.getQuizRoom(salaId)
 
         viewLifecycleOwner.lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                quizRoomRepository.currentQuestion.collect {
+                viewModel.repository.currentQuestion.collect {
                     currentQuestion = it
                     with(binding) {
                         if (it.status == CurrentQuestionStatus.InProgress) {
@@ -83,7 +84,7 @@ class FragmentPreguntas : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                quizRoomRepository.quizGroup.collect {
+                viewModel.repository.quizGroup.collect {
                     (context as AppCompatActivity).supportActionBar!!.title = it
                 }
             }
@@ -91,7 +92,7 @@ class FragmentPreguntas : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                quizRoomRepository.quizRoomStatus.collect {
+                viewModel.repository.quizRoomStatus.collect {
                     if (it == QuizRoomStatus.Completed) {
                         findNavController().navigate(R.id.action_fragmentPreguntas_to_fragmentCuestionarioCompletado)
                     }
@@ -113,11 +114,11 @@ class FragmentPreguntas : Fragment() {
             viewLifecycleOwner.lifecycleScope.launch {
                 lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                     binding.root.transitionToState(R.id.action_buttons_end)
-                    quizRoomRepository.addAnswer(currentQuestion.questionId, currentQuestion.question, userId, salaId, answer)
-                    quizRoomRepository.addAnswerToUserCollection(
+                    viewModel.repository.addAnswer(currentQuestion.questionId, currentQuestion.question, userId, salaId, answer)
+                    viewModel.repository.addAnswerToUserCollection(
                         userId = userId,
-                        quizId = quizRoomRepository.quizId.value,
-                        quizName = quizRoomRepository.quizName.value,
+                        quizId = viewModel.repository.quizId.value,
+                        quizName = viewModel.repository.quizName.value,
                         answer = answer,
                         questionId = currentQuestion.questionId,
                         questionName = currentQuestion.question,
