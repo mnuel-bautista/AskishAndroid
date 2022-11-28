@@ -14,7 +14,6 @@ class AdaptadorPreguntas(val preguntasList : ArrayList<PreguntasModel>) : Recycl
 
         val question : TextView = itemView.findViewById(R.id.tv_pregunta)
         val answer : TextView = itemView.findViewById(R.id.tv_respu)
-        val correctAnswer : TextView = itemView.findViewById(R.id.tv_respu_correcta)
         val supportingText : TextView = itemView.findViewById(R.id.tv_descripcion)
 
     }
@@ -29,8 +28,7 @@ class AdaptadorPreguntas(val preguntasList : ArrayList<PreguntasModel>) : Recycl
     override fun onBindViewHolder(holder: AdaptadorPreguntas.MyViewHolder, position: Int) {
         val preguntasModel : PreguntasModel = preguntasList[position]
         holder.question.text = preguntasModel.question
-        holder.answer.text = preguntasModel.answer
-        holder.correctAnswer.text = preguntasModel.correctAnswer
+        holder.answer.text = preguntasModel.correctAnswer
         holder.supportingText.text = preguntasModel.supportingText
     }
 

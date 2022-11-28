@@ -12,8 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.QuerySnapshot
+import dev.manuel.proyectomoviles.MainActivity
 import dev.manuel.proyectomoviles.R
 import dev.manuel.proyectomoviles.db.AppDatabase
+import dev.manuel.proyectomoviles.getUserId
 import dev.manuel.proyectomoviles.models.PreguntasModel
 import dev.manuel.proyectomoviles.ui.fragments.adapters.AdaptadorPreguntas
 
@@ -24,7 +26,7 @@ class FragmentCuestionario : Fragment() {
     private lateinit var preguntasArrayList: ArrayList<PreguntasModel>
     private lateinit var adaptadorPreguntas: AdaptadorPreguntas
     private val firestore = AppDatabase.getDatabase()?.firestore
-    private val idQuiz = "hcBYmE4It2lsjb1KYD9J"
+    private var quizId: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +40,10 @@ class FragmentCuestionario : Fragment() {
         recyclerView = root.findViewById(R.id.listaPreguntas)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.setHasFixedSize(true)
+        quizId = arguments?.getString("quizId") ?: ""
+        val quizName = arguments?.getString("quiz") ?: ""
+
+        (requireActivity() as MainActivity).supportActionBar?.title = quizName
 
         preguntasArrayList = arrayListOf()
 
@@ -51,8 +57,9 @@ class FragmentCuestionario : Fragment() {
 
 
     private fun EventChangeListener() {
-        firestore?.collection("Quiz")?.document("okGsS2gwYYzuUOIOCOOH")?.collection("quiz")?.
-        addSnapshotListener(object : com.google.firebase.firestore.EventListener<QuerySnapshot>{
+        val userId = requireActivity().getUserId()
+        firestore?.collection("users/${userId}/quizzes/$quizId/questions")
+            ?.addSnapshotListener(object : com.google.firebase.firestore.EventListener<QuerySnapshot>{
             override fun onEvent(
                 value: QuerySnapshot?,
                 error: FirebaseFirestoreException?

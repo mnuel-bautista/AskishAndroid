@@ -23,95 +23,55 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/colorSurface">
-    <LinearLayout
-            android:layout_width="match_parent"
+
+        <TextView
+            android:id="@+id/tv_pregunta"
+            style="@style/TextAppearance.Material3.TitleMedium"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginStart="4dp"
-            tools:ignore="MissingConstraints">
 
-            <TextView
-                android:id="@+id/tv_pregunta"
-                style="@style/TextAppearance.Material3.TitleMedium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:text="¿Quien descubrio America?"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
 
-                android:layout_marginTop="24dp"
-                android:text="¿Quien descubrio America?"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/tv_respu"
+            style="@style/TextAppearance.Material3.BodyMedium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:alpha="0.8"
+            android:text="Pancho Villa"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/tv_pregunta"
+            app:layout_constraintStart_toStartOf="@+id/tv_pregunta"
+            app:layout_constraintTop_toBottomOf="@+id/tv_pregunta" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tv_descripcion"
+            style="@style/TextAppearance.Material3.BodySmall"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"
+            android:alpha="0.8"
+            android:text="A pesar de la diversidad de teorías acerca de este descubrimiento, la historia oficial reconoce a Cristóbal Colón como el legítimo descubridor del nuevo continente en 1492, principalmente por la gran utilidad que tuvieron sus viajes en el sector comercial de su época."
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tv_respu"
+            app:layout_constraintTop_toBottomOf="@+id/tv_respu" />
 
-            <TextView
-                style="@style/TextAppearance.Material3.TitleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="1dp"
-                android:alpha="0.8"
-                android:text="Respuesta:"
-                app:layout_constraintBottom_toBottomOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_respu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/TextAppearance.Material3.BodyMedium"
-                android:alpha="0.8"
-                android:layout_marginStart="5dp"
-                android:layout_weight="1"
-                android:text="Pancho Villa"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    style="@style/TextAppearance.Material3.TitleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="1dp"
-                    android:alpha="0.8"
-                    android:text="Respuesta Correcta:"
-                    app:layout_constraintBottom_toBottomOf="parent"  />
-
-                <TextView
-                    android:id="@+id/tv_respu_correcta"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextAppearance.Material3.BodyMedium"
-                    android:alpha="0.8"
-                    android:layout_marginStart="5dp"
-                    android:layout_weight="1"
-                    android:text="Cristobal Colon"
-                    android:textSize="14sp" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/tv_descripcion"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                style="@style/TextAppearance.Material3.BodySmall"
-                android:alpha="0.8"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="10dp"
-                android:text="A pesar de la diversidad de teorías acerca de este descubrimiento, la historia oficial reconoce a Cristóbal Colón como el legítimo descubridor del nuevo continente en 1492, principalmente por la gran utilidad que tuvieron sus viajes en el sector comercial de su época."
-                android:textColor="#49454F"
-                android:textSize="14sp" />
-
-        </LinearLayout>
         <View
             android:id="@+id/divider"
             android:layout_width="0dp"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
             android:alpha="0.5"
             android:background="?attr/dividerHorizontal"
             app:layout_constraintBottom_toBottomOf="parent"

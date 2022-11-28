@@ -1,5 +1,6 @@
 package dev.manuel.proyectomoviles.models
 
 data class CuestionariosModel(
-    var quiz:String ?= null,
+    val quizId: String = "", 
+    val quiz: String = "",
 )

@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -59,8 +60,9 @@ class FragmentCuestionarios : Fragment() {
             AdaptadorCuestionarios.onItemClickListener {
 
             override fun onItemClick(position: Int) {
-
-                if (position == 0) findNavController().navigate(R.id.fragmentCuestionario) //Moverse entre pantallas
+                val args = bundleOf("quizId" to cuestionariosArrayList[position].quizId,
+                    "quiz" to cuestionariosArrayList[position].quiz)
+                if (position == 0) findNavController().navigate(R.id.fragmentCuestionario, args) //Moverse entre pantallas
             }
         })
 
@@ -87,7 +89,7 @@ class FragmentCuestionarios : Fragment() {
                 }
                 for (dc: DocumentChange in value?.documentChanges!!) {
                     if (dc.type == DocumentChange.Type.ADDED) {
-                        cuestionariosArrayList.add(dc.document.toObject(CuestionariosModel::class.java))
+                        cuestionariosArrayList.add(CuestionariosModel(dc.document.id, dc.document.getString("quiz") ?: ""))
                     }
                 }
                 adaptadorCuestionarios.notifyDataSetChanged()
