@@ -61,6 +61,10 @@ class FragmentLogin : Fragment() {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
 
+        binding.btnTelefono.setOnClickListener{
+            findNavController().navigate(R.id.action_FragmentLogin_to_fragmentTelefono)
+        }
+
         binding.btnIngresar.setOnClickListener {
             val emailField = binding.userEmailEditText.editText?.editableText?.toString()
             val passwordField = binding.userPasswordText.editableText.toString()

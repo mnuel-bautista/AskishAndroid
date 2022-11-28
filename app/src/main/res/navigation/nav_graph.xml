@@ -15,11 +15,15 @@
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/FragmentRegistro" />
         <action
+            android:id="@+id/action_FragmentLogin_to_fragmentTelefono"
+            app:destination="@+id/fragmentTelefono" />
+        <action
             android:id="@+id/action_FragmentLogin_to_fragmentGrupos"
             app:destination="@id/fragmentGrupos"
             app:launchSingleTop="true"
             app:popUpTo="@id/FragmentLogin"
             app:popUpToInclusive="true" />
+
     </fragment>
     <fragment
         android:id="@+id/FragmentRegistro"
