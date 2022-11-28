@@ -160,10 +160,12 @@ class QuizzRoomRepository {
 private fun getCurrentQuestion(quizRoom: DocumentSnapshot): CurrentQuestion {
     val questionId = quizRoom.getString("question.questionId") ?: ""
     val question = quizRoom.getString("question.question") ?: ""
-    val correctAnswer = quizRoom.getString("question.correctAnswer") ?: ""
+    val correctAnswerKey = quizRoom.getString("question.correctAnswer") ?: ""
+
     val description = quizRoom.getString("question.description") ?: ""
     val status = getQuestionStatus(quizRoom.getString("question.status"))
     val answers = quizRoom.get("question.answers") as HashMap<String, String>? ?: mapOf()
+    val correctAnswer = answers[correctAnswerKey] ?: ""
 
     return CurrentQuestion(questionId, question, correctAnswer, description, status, answers)
 }

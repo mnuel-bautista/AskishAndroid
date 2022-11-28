@@ -10,64 +10,116 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <Button
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/opcion_a"
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="0dp"
         android:layout_height="64dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="32dp"
+        android:clickable="true"
+        android:focusable="true"
         android:minHeight="64dp"
-        android:text="Opción A"
         app:layout_constraintEnd_toEndOf="@+id/view"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/view"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
+        app:layout_constraintTop_toBottomOf="@+id/view">
 
-    <Button
+        <TextView
+            android:id="@+id/textA"
+            style="@style/TextAppearance.Material3.TitleMedium"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:layout_marginStart="16dp"
+            android:gravity="center_vertical"
+            android:text="Hola"
+            android:textAlignment="gravity" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/opcion_b"
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:layout_marginTop="32dp"
         android:minHeight="64dp"
-        android:text="Opción B"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintEnd_toEndOf="@+id/opcion_a"
         app:layout_constraintStart_toStartOf="@+id/opcion_a"
-        app:layout_constraintTop_toBottomOf="@+id/opcion_a" />
+        app:layout_constraintTop_toBottomOf="@+id/opcion_a" >
+        <TextView
+            android:id="@+id/textB"
+            style="@style/TextAppearance.Material3.TitleMedium"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:layout_marginStart="16dp"
+            android:gravity="center_vertical"
+            android:text="Hola"
+            android:textAlignment="gravity"/>
+    </com.google.android.material.card.MaterialCardView>
 
-    <Button
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/opcion_c"
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:layout_marginTop="32dp"
         android:minHeight="64dp"
-        android:text="Opción C"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintEnd_toEndOf="@+id/opcion_b"
         app:layout_constraintStart_toStartOf="@+id/opcion_b"
-        app:layout_constraintTop_toBottomOf="@+id/opcion_b" />
+        app:layout_constraintTop_toBottomOf="@+id/opcion_b" >
+        <TextView
+            android:id="@+id/textC"
+            style="@style/TextAppearance.Material3.TitleMedium"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:layout_marginStart="16dp"
+            android:gravity="center_vertical"
+            android:text="Hola"
+            android:textAlignment="gravity"/>
+    </com.google.android.material.card.MaterialCardView>
 
-    <Button
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/opcion_d"
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:layout_marginTop="32dp"
+        android:clickable="true"
+        android:focusable="true"
         android:minHeight="64dp"
-        android:text="Opción D"
         app:layout_constraintEnd_toEndOf="@+id/opcion_c"
         app:layout_constraintStart_toStartOf="@+id/opcion_c"
-        app:layout_constraintTop_toBottomOf="@+id/opcion_c" />
+        app:layout_constraintTop_toBottomOf="@+id/opcion_c">
 
-    <View
+        <TextView
+            android:id="@+id/textD"
+            style="@style/TextAppearance.Material3.TitleMedium"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:layout_marginStart="16dp"
+            android:gravity="center_vertical"
+            android:text="Hola"
+            android:textAlignment="gravity" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/view"
+        style="@style/Widget.Material3.CardView.Filled"
         android:layout_width="0dp"
         android:layout_height="200dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
-        android:background="#E7E0EC"
+        android:background="?attr/colorSurface"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

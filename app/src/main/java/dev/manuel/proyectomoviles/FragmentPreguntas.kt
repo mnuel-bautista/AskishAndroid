@@ -78,6 +78,11 @@ class FragmentPreguntas : Fragment() {
                             respuestaCorrecta.text = it.correctAnswer
                             descripcion.text = it.description
                         }
+
+                        textA.text = it.answers["a"]
+                        textB.text = it.answers["b"]
+                        textC.text = it.answers["c"]
+                        textD.text = it.answers["d"]
                     }
                 }
             }
