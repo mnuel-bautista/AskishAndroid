@@ -22,14 +22,14 @@ import dev.manuel.proyectomoviles.models.CuestionariosModel
 import dev.manuel.proyectomoviles.ui.fragments.adapters.AdaptadorCuestionarios
 
 
-class FragmentCuestionarios : Fragment(){
+class FragmentCuestionarios : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var cuestionariosArrayList: ArrayList<CuestionariosModel>
     private lateinit var adaptadorCuestionarios: AdaptadorCuestionarios
     private val firestore = AppDatabase.getDatabase()?.firestore
-    private lateinit var obtenerId : String
-    private val idUsuario = "okGsS2gwYYzuUOIOCOOH"
+    private lateinit var obtenerId: String
+    private var idUsuario: String = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +40,7 @@ class FragmentCuestionarios : Fragment(){
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        idUsuario = requireActivity().getUserId()
         val root = inflater.inflate(R.layout.fragment_cuestionarios, container, false)
         recyclerView = root.findViewById(R.id.list_Cuestionarios)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -54,7 +55,8 @@ class FragmentCuestionarios : Fragment(){
         EventChangeListener()
 
 
-        adaptadorCuestionarios.setOnItemClickListener(object : AdaptadorCuestionarios.onItemClickListener{
+        adaptadorCuestionarios.setOnItemClickListener(object :
+            AdaptadorCuestionarios.onItemClickListener {
 
             override fun onItemClick(position: Int) {
 
@@ -62,16 +64,13 @@ class FragmentCuestionarios : Fragment(){
             }
         })
 
-
-
-
         return root
     }
 
-    fun getAllDocumentsUsuarios (){
-        var id : String
+    fun getAllDocumentsUsuarios() {
+        var id: String
         firestore?.collection("Quiz")?.get()?.addOnSuccessListener { resultado ->
-            for (documentos in resultado){
+            for (documentos in resultado) {
                 id = documentos.id
                 println(documentos.id)
             }
@@ -80,26 +79,19 @@ class FragmentCuestionarios : Fragment(){
 
 
     private fun EventChangeListener() {
-        firestore?.collection("Quiz")?.
-            whereEqualTo("Quiz.${idUsuario}", true)?.
-                addSnapshotListener(object : com.google.firebase.firestore.EventListener<QuerySnapshot>{
-                    override fun onEvent(
-                        value: QuerySnapshot?,
-                        error: FirebaseFirestoreException?
-                    ) {
-                        if (error != null){
-                            Log.e("Firestore Error", error.message.toString())
-                            return
-                        }
-                        for (dc : DocumentChange in value?.documentChanges!!){
-                            if (dc.type == DocumentChange.Type.ADDED){
-                                cuestionariosArrayList.add(dc.document.toObject(CuestionariosModel::class.java))
-                            }
-                        }
-                        adaptadorCuestionarios.notifyDataSetChanged()
+        firestore?.collection("users/${idUsuario}/quizzes")
+            ?.addSnapshotListener { value, error ->
+                if (error != null) {
+                    Log.e("Firestore Error", error.message.toString())
+                    return@addSnapshotListener
+                }
+                for (dc: DocumentChange in value?.documentChanges!!) {
+                    if (dc.type == DocumentChange.Type.ADDED) {
+                        cuestionariosArrayList.add(dc.document.toObject(CuestionariosModel::class.java))
                     }
-
-                })
+                }
+                adaptadorCuestionarios.notifyDataSetChanged()
+            }
     }
 
 }
