@@ -57,27 +57,28 @@ class QuizzRoomRepository {
     fun getQuizRoom(quizRoomId: String) {
         quizRoomListener?.remove()
 
-        quizRoomListener = firestore?.document("salas/$quizRoomId")?.addSnapshotListener { value, _ ->
-            if (value != null) {
-                val status = getQuizRoomStatus(value.getString("quizRoomStatus"))
-                mQuizRoomStatus.value = status
+        quizRoomListener =
+            firestore?.document("salas/$quizRoomId")?.addSnapshotListener { value, _ ->
+                if (value != null) {
+                    val status = getQuizRoomStatus(value.getString("quizRoomStatus"))
+                    mQuizRoomStatus.value = status
 
-                val currentQuestion = getCurrentQuestion(value)
-                mCurrentQuestion.value = currentQuestion
+                    val currentQuestion = getCurrentQuestion(value)
+                    mCurrentQuestion.value = currentQuestion
 
-                val participants = value.get("participants") as HashMap<String, Boolean>
-                mParticipantsCount.value = participants.count()
+                    val participants = value.get("participants") as HashMap<String, Boolean>
+                    mParticipantsCount.value = participants.count()
 
-                val group = value.getString("group.name") ?: ""
-                mQuizGroup.value = group
+                    val group = value.getString("group.name") ?: ""
+                    mQuizGroup.value = group
 
-                val quizId = value.getString("quiz.quizId") ?: ""
-                mQuizId.value = quizId
+                    val quizId = value.getString("quiz.quizId") ?: ""
+                    mQuizId.value = quizId
 
-                val quizName = value.getString("quiz.name") ?: ""
-                mQuizName.value = quizName
+                    val quizName = value.getString("quiz.name") ?: ""
+                    mQuizName.value = quizName
+                }
             }
-        }
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -85,16 +86,18 @@ class QuizzRoomRepository {
         allQuizRoomsListener?.remove()
         allQuizRoomsListener = firestore?.collection("salas")
             ?.whereEqualTo("guests.$userId", true)
-            ?.whereNotEqualTo("quizRoomStatus", "Completed")
-            ?.addSnapshotListener { value, _ ->
-                val rooms = value?.documents?.map { e ->
-                    val id = e.id
-                    val cuestionario = e["quiz.name"] as String
-                    val grupo = e["group.name"] as String
-                    val participantes = (e["participants"] as HashMap<String, Boolean>).count()
+            ?.addSnapshotListener { value, error ->
+                error
+                val rooms = value?.documents
+                    ?.filter { it.getString("quizRoomStatus") != "Completed"}
+                    ?.map { e ->
+                        val id = e.id
+                        val cuestionario = e["quiz.name"] as String
+                        val grupo = e["group.name"] as String
+                        val participantes = (e["participants"] as HashMap<String, Boolean>).count()
 
-                    Sala(id, cuestionario, grupo, participantes)
-                } ?: emptyList()
+                        Sala(id, cuestionario, grupo, participantes)
+                    } ?: emptyList()
 
                 mQuizRooms.value = rooms
             }
@@ -127,7 +130,7 @@ class QuizzRoomRepository {
 
     suspend fun addAnswerToUserCollection(
         userId: String, quizId: String, quizName: String,
-        questionId: String,questionName: String,
+        questionId: String, questionName: String,
         answer: String, correctAnswer: String, supportingText: String
     ): Boolean {
         return suspendCoroutine { cont ->
