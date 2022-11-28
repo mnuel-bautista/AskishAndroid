@@ -38,6 +38,7 @@ class FragmentGrupos : Fragment() {
         idUsuario = userId
         if(userId == "") {
             findNavController().navigate(R.id.action_fragmentGrupos_to_FragmentLogin)
+            return null
         }
         return inflater.inflate(R.layout.fragment_grupos, container, false)
     }
