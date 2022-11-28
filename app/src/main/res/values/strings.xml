@@ -51,6 +51,9 @@
     <string name="SLogin02">O ingresa con</string>
     <string name="SReg01">¿Nuevo usuario?</string>
     <string name="SReg02">Llena los siguientes campos para completar el registro:</string>
+    <string name="SRegTel01">¿Registro por teléfono?</string>
+    <string name="SRegTel02">Número de teléfono</string>
+    <string name="SRegTel03">Código de verificación</string>
 
     <!-- Hints -->
 
@@ -67,6 +70,8 @@
     <string name="btnLogin04">Ingresar con número de teléfono</string>
     <string name="btnReg01">Ya tengo cuenta</string>
     <string name="btnReg02">Crear cuenta</string>
+    <string name="btnTel01">Mandar código</string>
+    <string name="btnTel02">Verificar código</string>
 
 
 </resources>
