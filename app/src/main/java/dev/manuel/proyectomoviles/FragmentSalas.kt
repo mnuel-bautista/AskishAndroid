@@ -12,9 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.transition.MaterialFadeThrough
 import dev.manuel.proyectomoviles.databinding.FragmentSalasBinding
-import dev.manuel.proyectomoviles.repositories.QuizzRoomRepository
 import dev.manuel.proyectomoviles.ui.fragments.adapters.CardSalaAdapter
 import dev.manuel.proyectomoviles.viewmodels.QuizRoomViewModel
 import kotlinx.coroutines.launch

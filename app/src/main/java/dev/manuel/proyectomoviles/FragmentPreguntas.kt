@@ -17,7 +17,6 @@ import dev.manuel.proyectomoviles.databinding.FragmentPreguntasBinding
 import dev.manuel.proyectomoviles.models.CurrentQuestion
 import dev.manuel.proyectomoviles.models.CurrentQuestionStatus
 import dev.manuel.proyectomoviles.repositories.QuizRoomStatus
-import dev.manuel.proyectomoviles.repositories.QuizzRoomRepository
 import dev.manuel.proyectomoviles.viewmodels.QuizRoomViewModel
 import kotlinx.coroutines.launch
 

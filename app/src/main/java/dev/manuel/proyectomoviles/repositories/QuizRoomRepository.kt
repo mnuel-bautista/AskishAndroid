@@ -134,18 +134,23 @@ class QuizzRoomRepository {
         answer: String, correctAnswer: String, supportingText: String
     ): Boolean {
         return suspendCoroutine { cont ->
-            firestore?.document("users/$userId/quizzes/$quizId/questions/$questionId")
-                ?.set(
-                    mapOf(
-                        "question" to questionName,
-                        "answer" to answer,
-                        "correctAnswer" to correctAnswer,
-                        "supportingText" to supportingText
-                    ), SetOptions.merge()
-                )
+            firestore?.document("users/$userId/quizzes/$quizId")
+                ?.set(mapOf("quiz" to quizName))
                 ?.addOnSuccessListener {
-                    cont.resume(true)
-                }?.addOnFailureListener { cont.resume(false) }
+                    firestore.document("users/$userId/quizzes/$quizId/questions/$questionId")
+                        .set(
+                            mapOf(
+                                "question" to questionName,
+                                "answer" to answer,
+                                "correctAnswer" to correctAnswer,
+                                "supportingText" to supportingText
+                            ), SetOptions.merge()
+                        )
+                        .addOnSuccessListener {
+                            cont.resume(true)
+                        }.addOnFailureListener { cont.resume(false) }
+                }
+
         }
     }
 

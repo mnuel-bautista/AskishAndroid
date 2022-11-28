@@ -3,7 +3,6 @@ package dev.manuel.proyectomoviles
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.navigation.findNavController
