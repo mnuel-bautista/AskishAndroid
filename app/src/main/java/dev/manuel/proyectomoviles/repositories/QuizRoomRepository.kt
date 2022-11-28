@@ -1,6 +1,7 @@
 package dev.manuel.proyectomoviles.repositories
 
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.SetOptions
 import dev.manuel.proyectomoviles.db.AppDatabase
 import dev.manuel.proyectomoviles.models.CurrentQuestion
@@ -13,6 +14,10 @@ import kotlin.coroutines.suspendCoroutine
 class QuizzRoomRepository {
 
     private val firestore = AppDatabase.getDatabase()?.firestore
+
+    private var allQuizRoomsListener: ListenerRegistration? = null
+
+    private var quizRoomListener: ListenerRegistration? = null
 
     private val mQuizRooms: MutableStateFlow<List<Sala>> =
         MutableStateFlow(emptyList())
@@ -50,9 +55,11 @@ class QuizzRoomRepository {
 
     @Suppress("UNCHECKED_CAST")
     fun getQuizRoom(quizRoomId: String) {
-        firestore?.document("salas/$quizRoomId")?.addSnapshotListener { value, _ ->
+        quizRoomListener?.remove()
+
+        quizRoomListener = firestore?.document("salas/$quizRoomId")?.addSnapshotListener { value, _ ->
             if (value != null) {
-                val status = getQuizRoomStatus(value.getString("quizzRoomStatus"))
+                val status = getQuizRoomStatus(value.getString("quizRoomStatus"))
                 mQuizRoomStatus.value = status
 
                 val currentQuestion = getCurrentQuestion(value)
@@ -75,7 +82,8 @@ class QuizzRoomRepository {
 
     @Suppress("UNCHECKED_CAST")
     fun getAllQuizRooms(userId: String) {
-        firestore?.collection("salas")
+        allQuizRoomsListener?.remove()
+        allQuizRoomsListener = firestore?.collection("salas")
             ?.whereEqualTo("guests.$userId", true)
             ?.whereNotEqualTo("quizRoomStatus", "Completed")
             ?.addSnapshotListener { value, _ ->
@@ -136,6 +144,11 @@ class QuizzRoomRepository {
                     cont.resume(true)
                 }?.addOnFailureListener { cont.resume(false) }
         }
+    }
+
+    fun removeListeners() {
+        allQuizRoomsListener?.remove()
+        quizRoomListener?.remove()
     }
 
 }

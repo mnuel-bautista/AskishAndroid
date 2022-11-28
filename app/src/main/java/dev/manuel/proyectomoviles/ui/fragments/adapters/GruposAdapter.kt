@@ -1,4 +1,4 @@
-package dev.manuel.proyectomoviles.adapters
+package dev.manuel.proyectomoviles.ui.fragments.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import dev.manuel.proyectomoviles.R
 
-class GrupoAdapter : RecyclerView.Adapter<GrupoAdapter.NombreViewHolder>() {
+class GruposAdapter : RecyclerView.Adapter<GruposAdapter.NombreViewHolder>() {
 
     private var listNombres = listOf<String>()
 

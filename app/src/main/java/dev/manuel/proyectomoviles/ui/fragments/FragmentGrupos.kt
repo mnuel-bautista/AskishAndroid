@@ -1,7 +1,6 @@
 package dev.manuel.proyectomoviles.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dev.manuel.proyectomoviles.R
-import dev.manuel.proyectomoviles.adapters.GrupoAdapter
+import dev.manuel.proyectomoviles.ui.fragments.adapters.GruposAdapter
 import dev.manuel.proyectomoviles.databinding.FragmentGruposBinding
 import dev.manuel.proyectomoviles.db.AppDatabase
 import dev.manuel.proyectomoviles.getUserId
@@ -25,7 +24,7 @@ class FragmentGrupos : Fragment() {
 
     private val groups = ArrayList<String>()
 
-    private val idUsuario = "hcBYmE4It2lsjb1KYD9J"
+    private var idUsuario: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,8 +35,10 @@ class FragmentGrupos : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val userId = requireActivity().getUserId()
+        idUsuario = userId
         if(userId == "") {
             findNavController().navigate(R.id.action_fragmentGrupos_to_FragmentLogin)
+            return null
         }
         return inflater.inflate(R.layout.fragment_grupos, container, false)
     }
@@ -48,7 +49,7 @@ class FragmentGrupos : Fragment() {
 
         recycleView = binding.recycleView
         recycleView.layoutManager = LinearLayoutManager(requireContext())
-        recycleView.adapter = GrupoAdapter()
+        recycleView.adapter = GruposAdapter()
         leerGrupos()
     }
 
@@ -59,7 +60,7 @@ class FragmentGrupos : Fragment() {
             ?.addSnapshotListener { value, _ ->
                 val groups = value?.documents?.map { it.getString("group") ?: "" }
                 if (groups?.isNotEmpty() == true) {
-                    (recycleView.adapter as GrupoAdapter).setListNames(groups)
+                    (recycleView.adapter as GruposAdapter).setListNames(groups)
                 }
             }
     }
