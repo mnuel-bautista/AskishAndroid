@@ -27,16 +27,7 @@ class FragmentTelefono : Fragment(), View.OnClickListener {
 
     private val firestore = AppDatabase.getDatabase()?.firestore
     private val auth = AppDatabase.getDatabase()?.auth
-
-    val name = binding.txtNombre.editText?.editableText
-    val username = binding.txtUsername.editText?.editableText
-    val password = binding.VerificationCode.editText?.editableText
-    val numero = binding.phoneEditText.editText?.editableText
-    val btnVolver = binding.btnVolver
     var storedVerificationId:String=""
-
-    val btnVerificar = binding.btnVerificar
-    val btnMandar = binding.btnMandar
 
     val TAG = "FragmentTelefono"
 
@@ -55,12 +46,22 @@ class FragmentTelefono : Fragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_telefono, container, false)
+        _binding = FragmentTelefonoBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val name = binding.txtNombre.editText?.editableText
+        val username = binding.txtUsername.editText?.editableText
+        val password = binding.VerificationCode.editText?.editableText
+        val numero = binding.phoneEditText.editText?.editableText
+        val btnVolver = binding.btnVolver
+
+
+        val btnVerificar = binding.btnVerificar
+        val btnMandar = binding.btnMandar
 
         btnVerificar.setOnClickListener(this)
         btnMandar.setOnClickListener(this)
@@ -72,6 +73,7 @@ class FragmentTelefono : Fragment(), View.OnClickListener {
         btnMandar.setOnClickListener {
 
         }
+
     }
     override fun onDestroyView() {
         super.onDestroyView()
@@ -87,6 +89,10 @@ class FragmentTelefono : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(p0: View?) {
+        val btnVerificar = binding.btnVerificar
+        val btnMandar = binding.btnMandar
+        val numero = binding.phoneEditText.editText?.editableText
+
         if (p0==btnMandar){
             val phoneNumber:String=numero.toString()
             val options = PhoneAuthOptions.newBuilder(auth!!)
