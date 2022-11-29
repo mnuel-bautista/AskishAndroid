@@ -58,7 +58,7 @@ class FragmentCuestionarios : Fragment() {
             override fun onItemClick(position: Int) {
                 val args = bundleOf("quizId" to cuestionariosArrayList[position].quizId,
                     "quiz" to cuestionariosArrayList[position].quiz)
-                if (position == 0) findNavController().navigate(R.id.fragmentCuestionario, args) //Moverse entre pantallas
+                    findNavController().navigate(R.id.fragmentCuestionario, args) //Moverse entre pantallas
             }
         })
 
