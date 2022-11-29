@@ -1,60 +1,80 @@
 package dev.manuel.proyectomoviles.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.DocumentChange
+import com.google.firebase.firestore.FirebaseFirestoreException
+import com.google.firebase.firestore.QuerySnapshot
+import dev.manuel.proyectomoviles.MainActivity
 import dev.manuel.proyectomoviles.R
+import dev.manuel.proyectomoviles.db.AppDatabase
+import dev.manuel.proyectomoviles.getUserId
 import dev.manuel.proyectomoviles.models.PreguntasModel
 import dev.manuel.proyectomoviles.ui.fragments.adapters.AdaptadorPreguntas
 
 
 class FragmentCuestionario : Fragment() {
 
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var preguntasArrayList: ArrayList<PreguntasModel>
+    private lateinit var adaptadorPreguntas: AdaptadorPreguntas
+    private val firestore = AppDatabase.getDatabase()?.firestore
+    private var quizId: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-
-        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_cuestionario, container, false)
-        val recycler : RecyclerView = root.findViewById(R.id.listaPreguntas)
-        val adapter : AdaptadorPreguntas = AdaptadorPreguntas()
+        recyclerView = root.findViewById(R.id.listaPreguntas)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.setHasFixedSize(true)
+        quizId = arguments?.getString("quizId") ?: ""
+        val quizName = arguments?.getString("quiz") ?: ""
 
-        //Configuracion del adapter, aqui se mandan datos de firebase
-        adapter.AdaptadorPreguntas(pregunt(), requireContext())
+        (requireActivity() as MainActivity).supportActionBar?.title = quizName
 
-        //Configuracion del recycler
-        recycler.hasFixedSize()
-        recycler.layoutManager = LinearLayoutManager(requireContext())
-        recycler.adapter = adapter
+        preguntasArrayList = arrayListOf()
 
+        adaptadorPreguntas = AdaptadorPreguntas(preguntasArrayList)
+
+        recyclerView.adapter = adaptadorPreguntas
+
+        EventChangeListener()
         return root
     }
 
-    private fun pregunt(): MutableList<PreguntasModel> {
-        var preguntasModels : MutableList<PreguntasModel> = ArrayList()
-        preguntasModels.add(PreguntasModel("¿Quien descubrio America?", "Cristobal Colon", "jajajsadpsaldpsaldpsldpsalpldaslpasldpsaldsaldsapdaspld"))
-        preguntasModels.add(PreguntasModel("¿Quien descubrio America?", "Cristobal Colon", "jajajsadpsaldpsaldpsldpsalpldaslpasldpsaldsaldsapdaspld"))
-        preguntasModels.add(PreguntasModel("¿Quien descubrio America?", "Cristobal Colon", "jajajsadpsaldpsaldpsldpsalpldaslpasldpsaldsaldsapdaspld"))
-        preguntasModels.add(PreguntasModel("¿Quien descubrio America?", "Cristobal Colon", "jajajsadpsaldpsaldpsldpsalpldaslpasldpsaldsaldsapdaspld"))
-        preguntasModels.add(PreguntasModel("¿Quien descubrio America?", "Cristobal Colon", "jajajsadpsaldpsaldpsldpsalpldaslpasldpsaldsaldsapdaspld"))
-        preguntasModels.add(PreguntasModel("¿Quien descubrio America?", "Cristobal Colon", "jajajsadpsaldpsaldpsldpsalpldaslpasldpsaldsaldsapdaspld"))
-        preguntasModels.add(PreguntasModel("¿Quien descubrio America?", "Cristobal Colon", "jajajsadpsaldpsaldpsldpsalpldaslpasldpsaldsaldsapdaspld"))
-        preguntasModels.add(PreguntasModel("¿Quien descubrio America?", "Cristobal Colon", "jajajsadpsaldpsaldpsldpsalpldaslpasldpsaldsaldsapdaspld"))
-        preguntasModels.add(PreguntasModel("¿Quien descubrio America?", "Cristobal Colon", "jajajsadpsaldpsaldpsldpsalpldaslpasldpsaldsaldsapdaspld"))
-        preguntasModels.add(PreguntasModel("¿Quien descubrio America?", "Cristobal Colon", "jajajsadpsaldpsaldpsldpsalpldaslpasldpsaldsaldsapdaspld"))
-        preguntasModels.add(PreguntasModel("¿Quien descubrio America?", "Cristobal Colon", "jajajsadpsaldpsaldpsldpsalpldaslpasldpsaldsaldsapdaspld"))
 
-        return preguntasModels
+    private fun EventChangeListener() {
+        val userId = requireActivity().getUserId()
+        firestore?.collection("users/${userId}/quizzes/$quizId/questions")
+            ?.addSnapshotListener(object : com.google.firebase.firestore.EventListener<QuerySnapshot>{
+            override fun onEvent(
+                value: QuerySnapshot?,
+                error: FirebaseFirestoreException?
+            ) {
+                if (error != null){
+                    Log.e("Firestore Error", error.message.toString())
+                    return
+                }
+                for (dc: DocumentChange in value?.documentChanges!!) {
+                    if (dc.type == DocumentChange.Type.ADDED) {
+                        preguntasArrayList.add(dc.document.toObject(PreguntasModel::class.java))
+                    }
+                }
+                adaptadorPreguntas.notifyDataSetChanged()
+            }
+
+        })
     }
 }

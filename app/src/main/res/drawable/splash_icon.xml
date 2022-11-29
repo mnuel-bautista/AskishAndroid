@@ -1,0 +1,55 @@
+<animated-vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt">
+    <aapt:attr name="android:drawable">
+        <vector
+            android:name="vector"
+            android:width="240dp"
+            android:height="240dp"
+            android:viewportWidth="240"
+            android:viewportHeight="240">
+            <group android:name="group">
+                <path
+                    android:name="path"
+                    android:pathData="M 58 80.153 C 58 69.023 67.035 60 78.18 60 L 148.18 60 C 159.325 60 168.36 69.023 168.36 80.153 L 168.36 148.29 C 168.36 159.421 159.325 168.444 148.18 168.444 L 78.18 168.444 C 67.035 168.444 58 159.421 58 148.29 L 58 80.153 Z"
+                    android:fillColor="#6750a4"
+                    android:strokeWidth="1"/>
+            </group>
+            <group android:name="group_1">
+                <path
+                    android:name="path_1"
+                    android:pathData="M 70.64 90.71 C 70.64 79.579 79.675 70.556 90.82 70.556 L 160.82 70.556 C 171.965 70.556 181 79.579 181 90.71 L 181 158.847 C 181 169.977 171.965 179 160.82 179 L 90.82 179 C 79.675 179 70.64 169.977 70.64 158.847 L 70.64 90.71 Z"
+                    android:fillColor="#a180f9"
+                    android:fillAlpha="0.9"
+                    android:strokeWidth="1"/>
+                <path
+                    android:name="path_2"
+                    android:pathData="M 133.089 155.488 L 150.722 155.488 L 134.674 99.251 L 114.831 99.251 L 115.984 103.137 L 101.33 155.488 L 115.455 155.488 L 117.281 146.515 L 130.926 146.515 L 133.089 155.488 Z M 123.479 115.757 L 128.572 136.726 L 119.251 136.726 L 123.479 115.757 Z"
+                    android:fillColor="#ffffff"
+                    android:strokeWidth="1"/>
+            </group>
+        </vector>
+    </aapt:attr>
+    <target android:name="group">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:propertyName="translateX"
+                android:duration="300"
+                android:valueFrom="-250"
+                android:valueTo="0"
+                android:valueType="floatType"
+                android:interpolator="@android:anim/decelerate_interpolator"/>
+        </aapt:attr>
+    </target>
+    <target android:name="group_1">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:propertyName="translateX"
+                android:duration="300"
+                android:valueFrom="250"
+                android:valueTo="0"
+                android:valueType="floatType"
+                android:interpolator="@android:anim/decelerate_interpolator"/>
+        </aapt:attr>
+    </target>
+</animated-vector>

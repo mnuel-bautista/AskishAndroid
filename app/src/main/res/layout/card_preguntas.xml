@@ -2,56 +2,82 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.Material3.CardView.Filled"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="#fAfBfD"
-    android:layout_marginBottom="4dp">
+    android:layout_marginStart="0dp"
+    android:layout_marginEnd="0dp"
+    android:layout_marginBottom="0dp"
+    android:checkable="true"
+    android:clickable="true"
+    android:elevation="0dp"
+    android:focusable="true"
+    app:cardBackgroundColor="?attr/colorSurfaceVariant"
+    app:cardMaxElevation="0dp"
+    app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.None">
 
-    <LinearLayout
-            android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linea"
+        style="@style/Widget.Material3.CardView.Outlined"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorSurface">
+
+        <TextView
+            android:id="@+id/tv_pregunta"
+            style="@style/TextAppearance.Material3.TitleMedium"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginStart="4dp">
 
-            <TextView
-                android:id="@+id/tv_pregunta"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="¿Quién descrubrió América?"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:text="¿Quien descubrio America?"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tv_respu"
+            style="@style/TextAppearance.Material3.BodyMedium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:alpha="0.8"
+            android:text="Pancho Villa"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/tv_pregunta"
+            app:layout_constraintStart_toStartOf="@+id/tv_pregunta"
+            app:layout_constraintTop_toBottomOf="@+id/tv_pregunta" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Respuesta correcta:"
-                    android:textSize="14sp" />
+        <TextView
+            android:id="@+id/tv_descripcion"
+            style="@style/TextAppearance.Material3.BodySmall"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"
+            android:alpha="0.8"
+            android:text="A pesar de la diversidad de teorías acerca de este descubrimiento, la historia oficial reconoce a Cristóbal Colón como el legítimo descubridor del nuevo continente en 1492, principalmente por la gran utilidad que tuvieron sus viajes en el sector comercial de su época."
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tv_respu"
+            app:layout_constraintTop_toBottomOf="@+id/tv_respu" />
 
-                <TextView
-                    android:id="@+id/tv_respu_correcta"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_weight="1"
-                    android:text="Cristobal Colon"
-                    android:textSize="14sp" />
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:alpha="0.5"
+            android:background="?attr/dividerHorizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tv_descripcion"
+            tools:ignore="NotSibling" />
 
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/tv_descripcion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="A pesar de la diversidad de teorías acerca de este descubrimiento, la historia oficial reconoce a Cristóbal Colón como el legítimo descubridor del nuevo continente en 1492, principalmente por la gran utilidad que tuvieron sus viajes en el sector comercial de su época."
-                android:textColor="#49454F"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

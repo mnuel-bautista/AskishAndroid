@@ -1,3 +1,7 @@
 package dev.manuel.proyectomoviles.models
 
-data class PreguntasModel(val pregunta:String, val respu_correcta:String, val descripcion:String)
+data class PreguntasModel(
+    var question:String ?= null,
+    var answer:String ?= null,
+    val correctAnswer:String ?= null,
+    val supportingText:String ?= null)
