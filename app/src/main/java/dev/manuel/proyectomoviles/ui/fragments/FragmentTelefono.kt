@@ -1,13 +1,16 @@
 package dev.manuel.proyectomoviles.ui.fragments
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
+import android.provider.ContactsContract.Profile
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.common.data.DataHolder
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
@@ -52,14 +55,7 @@ class FragmentTelefono : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val name = binding.txtNombre.editText?.editableText
-        val username = binding.txtUsername.editText?.editableText
-        val password = binding.VerificationCode.editText?.editableText
-        val numero = binding.phoneEditText.editText?.editableText
         val btnVolver = binding.btnVolver
-
-
         val btnVerificar = binding.btnVerificar
         val btnMandar = binding.btnMandar
 
@@ -68,10 +64,6 @@ class FragmentTelefono : Fragment(), View.OnClickListener {
 
         btnVolver.setOnClickListener {
             findNavController().navigate(R.id.action_fragmentTelefono_to_fragmentLogin)
-        }
-
-        btnMandar.setOnClickListener {
-
         }
 
     }
@@ -89,12 +81,15 @@ class FragmentTelefono : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(p0: View?) {
+        val name = binding.txtNombre.editText?.editableText
+        val username = binding.txtUsername.editText?.editableText
+        val verifyCode = binding.VerificationCode.editText?.editableText
         val btnVerificar = binding.btnVerificar
         val btnMandar = binding.btnMandar
-        val numero = binding.phoneEditText.editText?.editableText
+        val number = binding.phoneEditText.editText?.editableText
 
         if (p0==btnMandar){
-            val phoneNumber:String=numero.toString()
+            val phoneNumber:String=number.toString()
             val options = PhoneAuthOptions.newBuilder(auth!!)
                 .setPhoneNumber(phoneNumber)       // Phone number to verify
                 .setTimeout(120L, TimeUnit.SECONDS) // Timeout and unit
@@ -105,9 +100,35 @@ class FragmentTelefono : Fragment(), View.OnClickListener {
             PhoneAuthProvider.verifyPhoneNumber(options)
         }
         else if(p0==btnVerificar){
+            val code = verifyCode.toString()
+            val credential = PhoneAuthProvider.getCredential(storedVerificationId!!, code)
+            auth?.signInWithCredential(credential)
+                ?.addOnCompleteListener(requireActivity()) { task ->
+                    if (task.isSuccessful) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "signInWithCredential:success")
 
+                        val userId = task.result.user!!.uid
+
+                        firestore?.collection("users")?.document(task.result.user!!.uid)
+                            ?.set(mapOf("name" to name.toString(), "username" to username.toString(), "number" to number.toString()))
+                            ?.addOnSuccessListener {
+                                (requireActivity() as MainActivity).setUserId(userId)
+                                findNavController().navigate(R.id.action_FragmentTelefono_to_fragmentGrupos)
+                            }
+
+                    } else {
+                        // Sign in failed, display a message and update the UI
+                        Log.w(TAG, "signInWithCredential:failure", task.exception)
+                        if (task.exception is FirebaseAuthInvalidCredentialsException) {
+                            // The verification code entered was invalid
+                        }
+                        // Update UI
+                    }
+                }
         }
     }
+
     val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
         override fun onVerificationCompleted(credential: PhoneAuthCredential) {
@@ -132,8 +153,8 @@ class FragmentTelefono : Fragment(), View.OnClickListener {
             } else if (e is FirebaseTooManyRequestsException) {
                 // The SMS quota for the project has been exceeded
             }
-
             // Show a message and update the UI
+
         }
 
         override fun onCodeSent(
